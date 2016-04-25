@@ -20,6 +20,7 @@ or inability to use this file or items derived from it.
 #include <stdlib.h>     
 #include <math.h>
 #include <tiffio.h>     /* Sam Leffler's libtiff library. */
+#include <stdbool.h>
 int writetiff(char *filename, char *description,
 		int x, int y, int width, int height, int compression);
 
@@ -31,9 +32,6 @@ int writetiff(char *filename, char *description,
 #define BLUE  0
 #define ALPHA 1
 
-#define true  1
-#define false 0
-
 #define KEY_ESC 27
 
 #define PI 3.1415926535898
@@ -44,8 +42,8 @@ float t = 0.f;
 float delta = 10.f;
 float k = 0.001f;
 float K = 0.002f;
-int IdleRunning = true;
-int TraceEcran = false;
+bool Running = true;
+bool TraceEcran = false;
 int RangFichierStockage = 0;
 float position = position_Ini;
 
@@ -229,21 +227,21 @@ GLvoid window_reshape(GLsizei width, GLsizei height)
 }
 
 // fonction de call-back pour la gestion des événements clavier
-
 GLvoid window_key(unsigned char key, int x, int y) 
 {  
-	switch (key) {    
+	switch (key) 
+	{    
 		case KEY_ESC:  
 			exit(1);                    
 			break; 
 		case ' ':  
-			if (IdleRunning) {
-				glutTimerFunc(latence,NULL,Step);
-				IdleRunning = false;
-			} 
-			else {
-				glutTimerFunc(latence,&window_timer,Step);
-				IdleRunning = true;
+			if(Running == false)
+			{
+				Running = true;
+			}	
+			else
+			{
+				Running = false;
 			}
 			break; 
 		case '+':  
@@ -260,8 +258,11 @@ GLvoid window_key(unsigned char key, int x, int y)
 
 // fonction de call-back appelée régulièrement
 
-GLvoid window_timer() 
+GLvoid window_timer(int value) 
 {
+	if(Running)
+	{
+
 	// On effecture une variation des angles de chaque membre
 	// de l'amplitude associée et de la position médiane
 	// ********* A FAIRE **************
@@ -280,12 +281,14 @@ GLvoid window_timer()
 	// ********* A FAIRE **************
 	position = K*t;
 
+	}
+	
 	glutTimerFunc(latence,&window_timer,++Step);
 
 	glutPostRedisplay();
+	
 }
 
-// un cylindre
 void Faire_Composantes() {
 	GLUquadricObj* GLAPIENTRY qobj;
 
@@ -337,25 +340,35 @@ void Faire_Composantes() {
 
 void  Dessine_Repere() {
 	glNewList(Mon_Repere, GL_COMPILE);
-	glBegin(GL_LINES);
-	glColor3f(1.0, 0.0, 0.0);
-	glVertex3f(-10 , 0 , 0);
-	glVertex3f(10 , 0 , 0);
-	glEnd();
-	glBegin(GL_LINES);
-	glColor3f(0.0, 1.0, 0.0);
-	glVertex3f(0 , -10 , 0);
-	glVertex3f(0 , 10 , 0);
-	glEnd();
-	glPointSize( 10.0 );
-	glBegin(GL_POINTS);
-	glColor3f(1.0, 1.0, 1.0);
-	glVertex3f(10.0 , 0 , 0);
-	glEnd();
-	glBegin(GL_POINTS);
-	glColor3f(1.0, 1.0, 1.0);
-	glVertex3f(0 , 10.0 , 0);
-	glEnd();
+	{
+		glBegin(GL_LINES);
+		{
+			glColor3f(1.0, 0.0, 0.0);
+			glVertex3f(-10 , 0 , 0);
+			glVertex3f(10 , 0 , 0);
+		}
+		glEnd();
+		glBegin(GL_LINES);
+		{
+			glColor3f(0.0, 1.0, 0.0);
+			glVertex3f(0 , -10 , 0);
+			glVertex3f(0 , 10 , 0);
+		}
+		glEnd();
+		glPointSize( 10.0 );
+		glBegin(GL_POINTS);
+		{
+			glColor3f(1.0, 1.0, 1.0);
+			glVertex3f(10.0 , 0 , 0);
+		}
+		glEnd();
+		glBegin(GL_POINTS);
+		{
+			glColor3f(1.0, 1.0, 1.0);
+			glVertex3f(0 , 10.0 , 0);
+		}
+		glEnd();
+	}
 	glEndList();
 }
 
@@ -372,12 +385,12 @@ void render_scene()
 
 	// rotation de 25 degres autour de la bissectrice de $Oy$ pour
 	// voir la figure en perspective
-	// glRotatef(25, 0, 1, 0);
+	//glRotatef(25, 0, 1, 0);
 
 	// déplacement horizontal selon l´axe Oy pour donner 
 	// une impression de déplacement horizontal accompagnant
 	// la marche
-	//  glTranslatef( 0, position, 0);
+	//glTranslatef( 0, position, 0);
 
 	// tracé du tronc, aucune transformation n´est
 	// requise
@@ -391,8 +404,10 @@ void render_scene()
 	// ********* A FAIRE **************
 	glColor3f(1.0, 1.0, 0.0);
 	glPushMatrix();
+	{
 		glTranslatef(0, 0, 8.5);
 		glCallList(Ma_Tete);
+	}
 	glPopMatrix();
 
 	// tracé de la cuisse droite avec une translation vers
@@ -401,29 +416,34 @@ void render_scene()
 	// ********* A FAIRE **************
 	glColor3f(1.0, 0.0, 0.0);
 	glPushMatrix();
+	{
 		glRotatef(180,1,0,0);
 		glTranslatef(1.25, 0, 0);
 		glRotatef(angle_Cuisse[Droit],1,0,0);
 		glCallList(Ma_Cuisse);
-	
-	// pour tracer le mollet, on reste dans le même
-	// contexte graphique et on translate de
-	// +5 selon Oz afin de mettre le repère au niveau
-	// du genou
-	// ********* A FAIRE **************
+
+		// pour tracer le mollet, on reste dans le même
+		// contexte graphique et on translate de
+		// +5 selon Oz afin de mettre le repère au niveau
+		// du genou
+		// ********* A FAIRE **************
 		glPushMatrix();
+		{
 			glColor3f(1.0, 0.25, 0.25);
 			glTranslatef(0, 0, 5);
 			glRotatef(angle_Mollet[Droit],1,0,0);
 			glCallList(Mon_Mollet);
+		}
 		glPopMatrix();
+	}
 	glPopMatrix();
-	
+
 	// cuisse et mollet gauches
 	// seule la translation initiale change
 	// ********* A FAIRE **************
 	glColor3f(1.0, 0.0, 0.0);
 	glPushMatrix();
+	{
 		glRotatef(180,1,0,0);
 		glTranslatef(-1.25, 0, 0);
 		glRotatef(angle_Cuisse[Gauche],1,0,0);
@@ -432,6 +452,7 @@ void render_scene()
 		glTranslatef(0, 0, 5);
 		glRotatef(angle_Mollet[Gauche],1,0,0);
 		glCallList(Mon_Mollet);
+	}
 	glPopMatrix();
 
 	// tracé du bras droit avec une translation vers
@@ -441,22 +462,26 @@ void render_scene()
 	// ********* A FAIRE **************
 	glColor3f(0.0, 0.0, 1.0);
 	glPushMatrix();
+	{	
 		glTranslatef(3.25, 0, 7);
 		glRotatef(180,1,0,0);
 		glRotatef(angle_Bras[Droit],1,0,0);
 		glCallList(Mon_Bras);
 
-	// pour tracer l´avant-bras, on reste dans le même
-	// contexte graphique et on translate de
-	// +5 selon Oz afin de mettre le repère au niveau
-	// du coude
-	// ********* A FAIRE **************
+		// pour tracer l´avant-bras, on reste dans le même
+		// contexte graphique et on translate de
+		// +5 selon Oz afin de mettre le repère au niveau
+		// du coude
+		// ********* A FAIRE **************
 		glPushMatrix();
+		{
 			glColor3f(0.25, 0.25, 1.0);
 			glTranslatef(0, 0, 5);
 			glRotatef(angle_AvantBras[Droit],1,0,0);
 			glCallList(Mon_AvantBras);
+		}
 		glPopMatrix();
+	}
 	glPopMatrix();
 
 	// bras et avant-bras gauches
@@ -464,25 +489,31 @@ void render_scene()
 	// ********* A FAIRE **************
 	glColor3f(0.0, 0.0, 1.0);
 	glPushMatrix();
+	{
 		glTranslatef(-3.25, 0, 7);
 		glRotatef(180,1,0,0);
 		glRotatef(angle_Bras[Gauche],1,0,0);
 		glCallList(Mon_Bras);
 		glPushMatrix();
+		{
 			glColor3f(0.25, 0.25, 1.0);
 			glTranslatef(0, 0, 5);
 			glRotatef(angle_AvantBras[Gauche],1,0,0);
 			glCallList(Mon_AvantBras);
+		}
 		glPopMatrix();
+	}
 	glPopMatrix();
 
+	//dessin du chapeau
 	glColor3f(1, 0, 1);
 	glPushMatrix();
+	{
 		glTranslatef(0, 0, 9.5);
 		glCallList(Mon_Chapeau);
+	}
 	glPopMatrix();
 
 	// permutation des buffers lorsque le tracé est achevé
 	glutSwapBuffers();
 }
-
