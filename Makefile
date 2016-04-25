@@ -4,19 +4,20 @@ LIBRARY = -lglut -lGLU -lGL -lX11 -lXext -lXi -lXmu -lm -ljpeg -lpng
 
 CFLAGS = $(INCPATH)
 LDFLAGS = $(LIBPATH) $(LIBRARY)
-GCC=/usr/bin/gcc
-SRC=src
+EXEC = avatar
+GCC = /usr/bin/gcc
+SRC = main.c init.c	anim.c disp.c
+OBJS = $(SRC:.c=.o)
 
-all:
-	@echo "Spécifier une cible"
+all: $(EXEC)
 
-%.o:$(SRC)/%.c
+$(EXEC): $(OBJS)
+	$(GCC) $(LDFLAGS) -o $(EXEC) $^ 
+
+%.o: %.c
 	$(GCC) $(CFLAGS) -o $@ -c $<
-
-%:%.o $(SRC)/%.c
-	$(GCC) $(LDFLAGS) -o $@ texjpeg.o texpng.o $<
 
 # cette commande permet de supprimer tous les objets
 clean:
-	@rm -f `/bin/ls *.o | grep -v Makefile | grep -v $(SRC)`
+	@rm *.o $(EXEC)
 
