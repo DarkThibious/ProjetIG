@@ -55,6 +55,7 @@ int  Mon_Bras;
 int  Mon_AvantBras;
 int  Ma_Cuisse;
 int  Mon_Mollet;
+int  Mon_Chapeau;
 int  Mon_Repere;
 
 enum lateralite{ Gauche = 0, Droit };
@@ -295,6 +296,7 @@ void Faire_Composantes() {
 	Mon_AvantBras = Ma_Tete + 3;
 	Ma_Cuisse = Ma_Tete + 4;
 	Mon_Mollet = Ma_Tete + 5;
+	Mon_Chapeau = Ma_Tete + 6;
 
 	// compilation de la display list de la sphère
 	// ********* A FAIRE **************
@@ -326,7 +328,10 @@ void Faire_Composantes() {
 	glNewList(Mon_Mollet, GL_COMPILE);
 	gluCylinder(qobj, 0.75, 0.25, 5.0, 20, 20);
 	glEndList();
-
+	glNewList(Mon_Chapeau, GL_COMPILE);
+	gluCylinder(qobj, 2, 2, 0.5, 20, 20);
+	gluCylinder(qobj, 1.5, 1.5, 3.0, 20, 20);
+	glEndList();
 
 }
 
@@ -469,6 +474,12 @@ void render_scene()
 			glRotatef(angle_AvantBras[Gauche],1,0,0);
 			glCallList(Mon_AvantBras);
 		glPopMatrix();
+	glPopMatrix();
+
+	glColor3f(1, 0, 1);
+	glPushMatrix();
+		glTranslatef(0, 0, 9.5);
+		glCallList(Mon_Chapeau);
 	glPopMatrix();
 
 	// permutation des buffers lorsque le tracé est achevé
