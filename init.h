@@ -49,6 +49,11 @@ extern int  Mon_AvantBras;
 extern int  Ma_Cuisse;
 extern int  Mon_Mollet;
 extern int  Mon_Chapeau;
+extern int  Mon_Papillon;
+
+extern int My_Triangle;
+extern int My_Base;
+extern int My_Pyramide;
 
 extern float angle_Bras[2];
 extern float angle_AvantBras[2];
@@ -75,4 +80,7 @@ void init_angles();
 void Faire_Composantes();
 void Dessine_Repere();
 
+void make_triangle();
+void make_base();
+void make_Pyramide();
 #endif

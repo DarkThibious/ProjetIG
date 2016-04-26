@@ -162,6 +162,18 @@ void render_scene()
 	}
 	glPopMatrix();
 
+	 
+	glColor3f(0, 1, 0);
+	glPushMatrix();
+	{
+		glTranslatef(0,7,0);
+		glScalef(2,2,2);
+		glCallList(Mon_Papillon);
+
+	}
+	glPopMatrix();
+
+
 	// permutation des buffers lorsque le tracé est achevé
 	glutSwapBuffers();
 }

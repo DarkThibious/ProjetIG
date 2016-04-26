@@ -17,13 +17,18 @@ static GLfloat mat_shininess[] = { 20.0};
 
 int  Mon_Repere;
 
+int Mon_Tronc;
 int  Ma_Tete;
-int  Mon_Tronc;
 int  Mon_Bras;
 int  Mon_AvantBras;
 int  Ma_Cuisse;
 int  Mon_Mollet;
 int  Mon_Chapeau;
+int  Mon_Papillon;
+
+int My_Triangle;
+int My_Base;
+int My_Pyramide;
 
 float angle_Bras[2];
 float angle_AvantBras[2];
@@ -97,13 +102,19 @@ void Faire_Composantes()
 	GLUquadricObj* GLAPIENTRY qobj;
 
 	// attribution des indentificateurs de display lists
-	Ma_Tete =  glGenLists(7);
+	Ma_Tete =  glGenLists(8);
 	Mon_Tronc = Ma_Tete + 1;
 	Mon_Bras = Ma_Tete + 2;
 	Mon_AvantBras = Ma_Tete + 3;
 	Ma_Cuisse = Ma_Tete + 4;
 	Mon_Mollet = Ma_Tete + 5;
 	Mon_Chapeau = Ma_Tete + 6;
+	Mon_Papillon = Ma_Tete + 7;
+
+
+	make_base();
+	make_triangle();
+	make_Pyramide();
 
 	glNewList(Ma_Tete,GL_COMPILE);	
 	{
@@ -149,6 +160,12 @@ void Faire_Composantes()
 		gluCylinder(qobj, 1.5, 1.5, 3.0, 20, 20);
 	}
 	glEndList();
+
+	glNewList(Mon_Papillon, GL_COMPILE);
+	{
+		glCallList(My_Pyramide);
+	}
+	glEndList();
 }
 
 void Dessine_Repere() 
@@ -182,6 +199,72 @@ void Dessine_Repere()
 			glVertex3f(0 , 10.0 , 0);
 		}
 		glEnd();
+	}
+	glEndList();
+}
+
+void make_triangle()
+{
+	My_Triangle = glGenLists(1);
+	glNewList(My_Triangle, GL_COMPILE);
+	{
+		glBegin(GL_TRIANGLES);
+		{
+			glVertex3f(0,0,1);
+			glVertex3f(1,1,0);
+			glVertex3f(1,-1,0);
+		}
+		glEnd();
+	}
+	glEndList();
+}
+
+void make_base()
+{
+	My_Base = glGenLists(1);
+	glNewList(My_Base, GL_COMPILE);
+	{
+		glBegin(GL_QUADS);
+		{
+			glVertex3f(1,-1,0);
+			glVertex3f(1,1,0);
+			glVertex3f(-1,1,0);
+			glVertex3f(-1,-1,0);
+		}
+		glEnd();
+	}	
+	glEndList();
+}
+
+void make_Pyramide()
+{
+	My_Pyramide = glGenLists(1);
+	glNewList(My_Pyramide, GL_COMPILE);
+	{
+		glCallList(My_Triangle);
+
+		glPushMatrix();
+		{
+			glRotatef(90, 0, 0, 1);
+			glCallList(My_Triangle);
+		}
+		glPopMatrix();
+
+		glPushMatrix();
+		{
+			glRotatef(180, 0, 0, 1);
+			glCallList(My_Triangle);
+		}
+		glPopMatrix();
+
+		glPushMatrix();
+		{
+			glRotatef(270, 0, 0, 1);
+			glCallList(My_Triangle);
+		}
+		glPopMatrix();
+
+		glCallList(My_Base);
 	}
 	glEndList();
 }
