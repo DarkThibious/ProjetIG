@@ -13,7 +13,6 @@ GLvoid window_display()
 }
 
 // fonction de call-back pour le redimensionnement de la fenêtre
-
 GLvoid window_reshape(GLsizei width, GLsizei height)
 {  
 	glViewport(0, 0, width, height);
@@ -57,7 +56,6 @@ void render_scene()
 	// selon Oz pour la placer au-dessus du tronc
 	// les appels à glPushMatrix et glPopMatrix servent 
 	// à sauvegarder et restaurer le contexte graphique
-	// ********* A FAIRE **************
 	glColor3f(1.0, 1.0, 0.0);
 	glPushMatrix();
 	{
@@ -69,7 +67,6 @@ void render_scene()
 	// tracé de la cuisse droite avec une translation vers
 	// la droite et une rotation de 180° autour de Ox
 	// pour l´orienter vers le bas
-	// ********* A FAIRE **************
 	glColor3f(1.0, 0.0, 0.0);
 	glPushMatrix();
 	{
@@ -82,7 +79,6 @@ void render_scene()
 		// contexte graphique et on translate de
 		// +5 selon Oz afin de mettre le repère au niveau
 		// du genou
-		// ********* A FAIRE **************
 		glPushMatrix();
 		{
 			glColor3f(1.0, 0.25, 0.25);
@@ -96,7 +92,6 @@ void render_scene()
 
 	// cuisse et mollet gauches
 	// seule la translation initiale change
-	// ********* A FAIRE **************
 	glColor3f(1.0, 0.0, 0.0);
 	glPushMatrix();
 	{
@@ -115,7 +110,6 @@ void render_scene()
 	// la droite et vers le haut composée avec une 
 	// rotation de 180° autour de Ox pour l´orienter
 	// vers le bas
-	// ********* A FAIRE **************
 	glColor3f(0.0, 0.0, 1.0);
 	glPushMatrix();
 	{	
@@ -128,7 +122,6 @@ void render_scene()
 		// contexte graphique et on translate de
 		// +5 selon Oz afin de mettre le repère au niveau
 		// du coude
-		// ********* A FAIRE **************
 		glPushMatrix();
 		{
 			glColor3f(0.25, 0.25, 1.0);
@@ -142,7 +135,6 @@ void render_scene()
 
 	// bras et avant-bras gauches
 	// seule la translation initiale change
-	// ********* A FAIRE **************
 	glColor3f(0.0, 0.0, 1.0);
 	glPushMatrix();
 	{

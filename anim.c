@@ -10,7 +10,7 @@ float position = position_Ini;
 float sin_k_t = 0;
 
 int Step = 0;
-int latence =4;
+int latence = 4;
 
 int prevDoing;
 int doing = RUN;
@@ -65,7 +65,7 @@ GLvoid window_timer(int value)
 
 void runCalc()
 {
-	// On effecture une variation des angles de chaque membre
+	// On effectue une variation des angles de chaque membre
 	// de l'amplitude associée et de la position médiane
 	sin_k_t = sin(k*t);
 	angle_Bras[Gauche] = med_Bras + amplitude_Bras * sin_k_t;
@@ -80,4 +80,3 @@ void runCalc()
 	// On déplace la position de l'avatar pour qu'il avance
 	position = K*t;
 }
-

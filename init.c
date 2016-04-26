@@ -97,7 +97,7 @@ void Faire_Composantes()
 	GLUquadricObj* GLAPIENTRY qobj;
 
 	// attribution des indentificateurs de display lists
-	Ma_Tete =  glGenLists(6);
+	Ma_Tete =  glGenLists(7);
 	Mon_Tronc = Ma_Tete + 1;
 	Mon_Bras = Ma_Tete + 2;
 	Mon_AvantBras = Ma_Tete + 3;
