@@ -162,12 +162,12 @@ void render_scene()
 	}
 	glPopMatrix();
 
-	 
-	glColor3f(0, 1, 0);
+	//dessin du noeud papillon
+	glColor3f(0, 1, 0); /*	glColor3f(0, 0, 0); // je veux un papillon noir */
 	glPushMatrix();
 	{
-		glTranslatef(0,7,0);
-		glScalef(2,2,2);
+		glTranslatef(0,0,7);
+		glScalef(1,1,10);
 		glCallList(Mon_Papillon);
 
 	}
