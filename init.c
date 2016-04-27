@@ -1,19 +1,19 @@
 #include "init.h"
 
-static GLfloat light_position0[] = { 15.0 , 15.0 , 15.0 , 0.0 };
-static GLfloat light_position1[] = { 15.0 , 15.0 , -15.0 , 0.0 };
+static GLfloat light_position0[] = {15.0, 15.0, 15.0, 0.0};
+static GLfloat light_position1[] = {15.0, 15.0, -15.0, 0.0};
 
-static GLfloat ambient_light0[] = { 0.0 , 0.0 , 0.0 , 0.0 };
-static GLfloat diffuse_light0[] = { 0.7 , 0.7 , 0.7 , 1.0 };
-static GLfloat specular_light0[] = { 0.1 , 0.1 , 0.1 , 0.1 };
+static GLfloat ambient_light0[] = {0.0, 0.0, 0.0, 0.0};
+static GLfloat diffuse_light0[] = {0.7, 0.7, 0.7, 1.0};
+static GLfloat specular_light0[] = {0.1, 0.1, 0.1, 0.1};
 
-static GLfloat ambient_light1[] = { 0.50 , 0.50 , 0.50 , 1.0 };
-static GLfloat diffuse_light1[] = { 0.5 , 1.0 , 1.0 , 1.0 };
-static GLfloat specular_light1[] = { 0.5 , 1.0 , 1.0 , 1.0 };
+static GLfloat ambient_light1[] = {0.50, 0.50, 0.50, 1.0};
+static GLfloat diffuse_light1[] = {0.5, 1.0, 1.0, 1.0};
+static GLfloat specular_light1[] = {0.5, 1.0, 1.0, 1.0};
 
-static GLfloat mat_specular[] = { 1.0 , 1.0 , 1.0 , 1.0 };
-static GLfloat mat_ambientanddiffuse[] = { 0.4, 0.4 , 0.0 , 1.0 };
-static GLfloat mat_shininess[] = { 20.0};
+static GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
+static GLfloat mat_ambientanddiffuse[] = {0.4, 0.4, 0.0, 1.0};
+static GLfloat mat_shininess[] = {20.0};
 
 int  Mon_Repere;
 
@@ -23,6 +23,10 @@ int  Mon_Bras;
 int  Mon_AvantBras;
 int  Ma_Cuisse;
 int  Mon_Mollet;
+int Ma_Paume;
+int Mon_Doigt;
+int Mon_Pouce;
+
 int  Mon_Chapeau;
 int  Mon_Papillon;
 
@@ -102,7 +106,7 @@ void Faire_Composantes()
 	GLUquadricObj* GLAPIENTRY qobj;
 
 	// attribution des indentificateurs de display lists
-	Ma_Tete =  glGenLists(8);
+	Ma_Tete =  glGenLists(10);
 	Mon_Tronc = Ma_Tete + 1;
 	Mon_Bras = Ma_Tete + 2;
 	Mon_AvantBras = Ma_Tete + 3;
@@ -110,6 +114,8 @@ void Faire_Composantes()
 	Mon_Mollet = Ma_Tete + 5;
 	Mon_Chapeau = Ma_Tete + 6;
 	Mon_Papillon = Ma_Tete + 7;
+	Ma_Paume = Ma_Tete+8;
+	Mon_Doigt = Ma_Tete +9;
 
 
 	make_base();
@@ -160,10 +166,14 @@ void Faire_Composantes()
 		gluCylinder(qobj, 1.5, 1.5, 3.0, 20, 20);
 	}
 	glEndList();
-
-	glNewList(Mon_Papillon, GL_COMPILE);
+	glNewList(Ma_Paume, GL_COMPILE);
 	{
-		glCallList(My_Pyramide);
+		gluCylinder(qobj, 0.3, 0.3, 0.5, 20, 20);
+	}
+	glEndList();
+	glNewList(Mon_Doigt, GL_COMPILE);
+	{
+		gluCylinder(qobj, 0.1, 0.1, 0.5, 20, 20);
 	}
 	glEndList();
 }

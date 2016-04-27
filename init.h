@@ -9,7 +9,7 @@
 #include <stdlib.h>     
 #include <stdbool.h>
 #include <math.h>
-//#include <tiffio.h>     /* Sam Leffler's libtiff library. */
+#include <tiffio.h>     /* Sam Leffler's libtiff library. */
 
 #define PI 3.1415926535898
 
@@ -40,17 +40,25 @@ static GLfloat mat_specular[];
 static GLfloat mat_ambientanddiffuse[];
 static GLfloat mat_shininess[];
 
-extern int  Mon_Repere;
+extern int Mon_Repere;
 
-extern int  Ma_Tete;
-extern int  Mon_Tronc;
-extern int  Mon_Bras;
-extern int  Mon_AvantBras;
-extern int  Ma_Cuisse;
-extern int  Mon_Mollet;
-extern int  Mon_Chapeau;
-extern int  Mon_Papillon;
+/* des parties du corps */
+extern int Ma_Tete;
+extern int Mon_Tronc;
+extern int Mon_Bras;
+extern int Mon_AvantBras;
+extern int Ma_Cuisse;
+extern int Mon_Mollet;
+extern int Ma_Paume;
+extern int Mon_Pouce;
+extern int Mon_Doigt;
 
+
+/* des accessoires */
+extern int Mon_Chapeau;
+extern int Mon_Papillon;
+
+/* des formes */
 extern int My_Triangle;
 extern int My_Base;
 extern int My_Pyramide;
@@ -83,4 +91,5 @@ void Dessine_Repere();
 void make_triangle();
 void make_base();
 void make_Pyramide();
+
 #endif

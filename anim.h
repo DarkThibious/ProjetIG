@@ -21,7 +21,8 @@ extern int latence;
 
 extern int doing;
 
-extern int angleVis;
+extern int angleVisZ;
+extern int angleVisX;
 
 GLvoid window_key(unsigned char key, int x, int y); 
 GLvoid window_special_key(int key, int x, int y);

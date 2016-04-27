@@ -47,7 +47,8 @@ void render_scene()
 	// la marche
 	//glTranslatef( 0, position, 0);
   
-	glRotatef(angleVis, 0 , 0, 1);
+	glRotatef(angleVisZ, 0 , 0, 1);
+	glRotatef(angleVisX, 1 , 0, 0);
 
 	// tracé du tronc, aucune transformation n´est
 	// requise
@@ -150,6 +151,10 @@ void render_scene()
 			glTranslatef(0, 0, 5);
 			glRotatef(angle_AvantBras[Gauche],1,0,0);
 			glCallList(Mon_AvantBras);
+			glTranslatef(0, 0, 5.15);
+			glRotatef(90, 1, 0, 0);
+			glColor3f(0.5, 0.5, 1.0);
+			glCallList(Ma_Paume);
 		}
 		glPopMatrix();
 	}

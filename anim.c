@@ -12,7 +12,8 @@ float sin_k_t = 0;
 int Step = 0;
 int latence = 4;
 
-int angleVis = 0;
+int angleVisZ = 0;
+int angleVisX = 0;
 
 int prevDoing;
 int doing = RUN;
@@ -50,10 +51,16 @@ GLvoid window_special_key(int key, int x, int y)
 	switch (key) 
 	{    
 		case GLUT_KEY_LEFT:
-			angleVis -= 1;
+			angleVisZ -= 1;
 			break;
 		case GLUT_KEY_RIGHT:
-			angleVis += 1;
+			angleVisZ += 1;
+			break;
+		case GLUT_KEY_UP:
+			angleVisX += 1;
+			break;
+		case GLUT_KEY_DOWN:
+			angleVisX -= 1;
 			break;
 	}     
 }
