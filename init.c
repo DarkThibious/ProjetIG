@@ -238,6 +238,14 @@ void Faire_Composantes()
 		glPopMatrix();
 	}
 	glEndList();
+	glNewList(Mon_Papillon, GL_COMPILE);
+	{
+	glCallList(My_Pyramide);
+	glTranslatef(0,0,1.25);
+	glRotatef(180,0,1,0);
+	glCallList(My_Pyramide);
+	}
+	glEndList();
 }
 
 void Dessine_Repere() 

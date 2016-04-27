@@ -265,6 +265,18 @@ void render_scene()
 	}
 	glPopMatrix();
 
+	//dessin du noeud papillon
+	glColor3f(0, 0, 0); 
+	{
+
+		glTranslatef(-0.5,-2,6);
+		glRotatef(90, 0, 1, 0);
+		glScalef(1,1,1);
+		glCallList(Mon_Papillon);
+
+	}
+	glPopMatrix();
+	
 	// permutation des buffers lorsque le tracé est achevé
 	glutSwapBuffers();
 }
