@@ -24,6 +24,7 @@ int main(int argc, char **argv)
 	glutReshapeFunc(&window_reshape);
 	// la gestion des événements clavier
 	glutKeyboardFunc(&window_key);
+	glutSpecialFunc(&window_special_key);
 	// fonction appelée régulièrement entre deux gestions d´événements
 	glutTimerFunc(latence,&window_timer,Step);
 

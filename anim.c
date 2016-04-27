@@ -12,6 +12,8 @@ float sin_k_t = 0;
 int Step = 0;
 int latence = 4;
 
+int angleVis = 0;
+
 int prevDoing;
 int doing = RUN;
 
@@ -33,19 +35,28 @@ GLvoid window_key(unsigned char key, int x, int y)
 			{
 				doing = prevDoing;
 			}
-			break; 
+			break;
 		case '+':  
 			delta *= 1.05;
 			break; 
 		case '-':  
 			delta /= 1.05;
 			break; 
-		default:
-			printf ("La touche %d n´est pas active.\n", key);
-			break;
 	}     
 }
 
+GLvoid window_special_key(int key, int x, int y) 
+{  
+	switch (key) 
+	{    
+		case GLUT_KEY_LEFT:
+			angleVis -= 1;
+			break;
+		case GLUT_KEY_RIGHT:
+			angleVis += 1;
+			break;
+	}     
+}
 // fonction de call-back appelée régulièrement
 GLvoid window_timer(int value) 
 {

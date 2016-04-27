@@ -36,7 +36,7 @@ void render_scene()
 
 	// rotation de 160 degres autour de l'axe Oz pour faire
 	// avancer l'avatar vers le spectateur
-	glRotatef(-160, 0, 0, 1);
+	//glRotatef(-160, 0, 0, 1);
 
 	// rotation de 25 degres autour de la bissectrice de $Oy$ pour
 	// voir la figure en perspective
@@ -46,6 +46,8 @@ void render_scene()
 	// une impression de déplacement horizontal accompagnant
 	// la marche
 	//glTranslatef( 0, position, 0);
+  
+	glRotatef(angleVis, 0 , 0, 1);
 
 	// tracé du tronc, aucune transformation n´est
 	// requise
@@ -161,18 +163,6 @@ void render_scene()
 		glCallList(Mon_Chapeau);
 	}
 	glPopMatrix();
-
-	//dessin du noeud papillon
-	glColor3f(0, 1, 0); /*	glColor3f(0, 0, 0); // je veux un papillon noir */
-	glPushMatrix();
-	{
-		glTranslatef(0,0,7);
-		glScalef(1,1,10);
-		glCallList(Mon_Papillon);
-
-	}
-	glPopMatrix();
-
 
 	// permutation des buffers lorsque le tracé est achevé
 	glutSwapBuffers();

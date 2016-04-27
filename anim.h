@@ -21,7 +21,10 @@ extern int latence;
 
 extern int doing;
 
+extern int angleVis;
+
 GLvoid window_key(unsigned char key, int x, int y); 
+GLvoid window_special_key(int key, int x, int y);
 GLvoid window_timer(); 
 
 void runCalc();
