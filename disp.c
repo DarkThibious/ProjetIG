@@ -269,9 +269,9 @@ void render_scene()
 	glColor3f(0, 0, 0); 
 	{
 
-		glTranslatef(-0.5,-2,6);
+		glTranslatef(-1,2.5,6);
 		glRotatef(90, 0, 1, 0);
-		glScalef(1,1,1);
+		glScalef(0.75,0.25,2);
 		glCallList(Mon_Papillon);
 
 	}
