@@ -12,7 +12,7 @@ float sin_k_t = 0;
 int Step = 0;
 int latence = 4;
 
-int angleVisZ = 0;
+int angleVisZ = 180;
 int angleVisX = 0;
 
 int prevDoing;
