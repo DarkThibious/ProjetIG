@@ -228,7 +228,14 @@ void Faire_Composantes()
 	glEndList();
 	glNewList(Mon_Doigt, GL_COMPILE);
 	{
-		gluCylinder(qobj, 0.1, 0.1, 0.5, 20, 20);
+		gluDisk(qobj, 0.0, 0.1, 20, 20);
+		gluCylinder(qobj, 0.1, 0.05, 0.5, 20, 20);
+		glPushMatrix();
+		{
+			glTranslatef(0, 0, 0.5);
+			gluDisk(qobj, 0.0, 0.05, 20, 20);
+		}
+		glPopMatrix();
 	}
 	glEndList();
 }
@@ -240,15 +247,22 @@ void Dessine_Repere()
 		glBegin(GL_LINES);
 		{
 			glColor3f(1.0, 0.0, 0.0);
-			glVertex3f(-10 , 0 , 0);
-			glVertex3f(10 , 0 , 0);
+			glVertex3f(-30 , 0 , 0);
+			glVertex3f(30 , 0 , 0);
 		}
 		glEnd();
 		glBegin(GL_LINES);
 		{
 			glColor3f(0.0, 1.0, 0.0);
-			glVertex3f(0 , -10 , 0);
-			glVertex3f(0 , 10 , 0);
+			glVertex3f(0 , -30 , 0);
+			glVertex3f(0 , 30 , 0);
+		}
+		glEnd();
+		glBegin(GL_LINES);
+		{
+			glColor3f(0.0, 0.0, 1.0);
+			glVertex3f(0 , 0 , -30);
+			glVertex3f(0 , 0 , 30);
 		}
 		glEnd();
 		glPointSize( 10.0 );
@@ -262,6 +276,12 @@ void Dessine_Repere()
 		{
 			glColor3f(1.0, 1.0, 1.0);
 			glVertex3f(0 , 10.0 , 0);
+		}
+		glEnd();
+		glBegin(GL_POINTS);
+		{
+			glColor3f(1.0, 1.0, 1.0);
+			glVertex3f(0 , 0.0 , 10.0);
 		}
 		glEnd();
 	}

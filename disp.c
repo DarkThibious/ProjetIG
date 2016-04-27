@@ -29,7 +29,6 @@ GLvoid window_reshape(GLsizei width, GLsizei height)
 
 void render_scene()
 {
-	Dessine_Repere();
 	// rotation de 90 degres autour de Ox pour mettre l'axe Oz 
 	// vertical comme sur la figure
 	glRotatef(-90, 1, 0, 0);
@@ -49,6 +48,8 @@ void render_scene()
   
 	glRotatef(angleVisZ, 0 , 0, 1);
 	glRotatef(angleVisX, 1 , 0, 0);
+
+	Dessine_Repere();
 
 	// tracé du tronc, aucune transformation n´est
 	// requise
@@ -138,6 +139,47 @@ void render_scene()
 				glRotatef(90, 1, 0, 0);
 				glColor3f(0.5, 0.5, 1.0);
 				glCallList(Ma_Paume);
+				glPushMatrix();
+				{
+					glRotatef(90, 1, 0, 0);
+					glPushMatrix();
+					{
+						glRotatef(-125, 0, 1, 0);
+						glTranslatef(0, 0.25, 0.3);
+						glCallList(Mon_Doigt);
+					}
+					glPopMatrix();
+					glPushMatrix();
+					{
+						glRotatef(-165, 0, 1, 0);
+						glTranslatef(0, 0.25, 0.3);
+						glCallList(Mon_Doigt);
+					}
+					glPopMatrix();
+					glPushMatrix();
+					{
+						glRotatef(-180, 0, 1, 0);
+						glTranslatef(0, 0.25, 0.3);
+						glCallList(Mon_Doigt);
+					}
+					glPopMatrix();
+					glPushMatrix();
+					{
+						glRotatef(-195, 0, 1, 0);
+						glTranslatef(0, 0.25, 0.3);
+						glCallList(Mon_Doigt);
+					}
+					glPopMatrix();
+					glPushMatrix();
+					{
+						glRotatef(-210, 0, 1, 0);
+						glTranslatef(0, 0.25, 0.3);
+						glCallList(Mon_Doigt);
+					}
+					glPopMatrix();
+				}
+				glPopMatrix();
+
 			}
 			glPopMatrix();
 		}
@@ -167,6 +209,46 @@ void render_scene()
 				glRotatef(90, 1, 0, 0);
 				glColor3f(0.5, 0.5, 1.0);
 				glCallList(Ma_Paume);
+				glPushMatrix();
+				{
+					glRotatef(90, 1, 0, 0);
+					glPushMatrix();
+					{
+						glRotatef(125, 0, 1, 0);
+						glTranslatef(0, 0.25, 0.3);
+						glCallList(Mon_Doigt);
+					}
+					glPopMatrix();
+					glPushMatrix();
+					{
+						glRotatef(165, 0, 1, 0);
+						glTranslatef(0, 0.25, 0.3);
+						glCallList(Mon_Doigt);
+					}
+					glPopMatrix();
+					glPushMatrix();
+					{
+						glRotatef(180, 0, 1, 0);
+						glTranslatef(0, 0.25, 0.3);
+						glCallList(Mon_Doigt);
+					}
+					glPopMatrix();
+					glPushMatrix();
+					{
+						glRotatef(195, 0, 1, 0);
+						glTranslatef(0, 0.25, 0.3);
+						glCallList(Mon_Doigt);
+					}
+					glPopMatrix();
+					glPushMatrix();
+					{
+						glRotatef(210, 0, 1, 0);
+						glTranslatef(0, 0.25, 0.3);
+						glCallList(Mon_Doigt);
+					}
+					glPopMatrix();
+				}
+				glPopMatrix();
 			}
 			glPopMatrix();
 		}
