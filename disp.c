@@ -116,7 +116,7 @@ void render_scene()
 	glColor3f(0.0, 0.0, 1.0);
 	glPushMatrix();
 	{	
-		glTranslatef(3.25, 0, 7);
+		glTranslatef(3, 0, 7);
 		glRotatef(180,1,0,0);
 		glRotatef(angle_Bras[Droit],1,0,0);
 		glCallList(Mon_Bras);
@@ -131,6 +131,15 @@ void render_scene()
 			glTranslatef(0, 0, 5);
 			glRotatef(angle_AvantBras[Droit],1,0,0);
 			glCallList(Mon_AvantBras);
+			glPushMatrix();
+			{
+				glTranslatef(0, 0, 5.25);
+				glTranslatef(0, 0.25, 0);
+				glRotatef(90, 1, 0, 0);
+				glColor3f(0.5, 0.5, 1.0);
+				glCallList(Ma_Paume);
+			}
+			glPopMatrix();
 		}
 		glPopMatrix();
 	}
@@ -141,7 +150,7 @@ void render_scene()
 	glColor3f(0.0, 0.0, 1.0);
 	glPushMatrix();
 	{
-		glTranslatef(-3.25, 0, 7);
+		glTranslatef(-3, 0, 7);
 		glRotatef(180,1,0,0);
 		glRotatef(angle_Bras[Gauche],1,0,0);
 		glCallList(Mon_Bras);
@@ -151,10 +160,15 @@ void render_scene()
 			glTranslatef(0, 0, 5);
 			glRotatef(angle_AvantBras[Gauche],1,0,0);
 			glCallList(Mon_AvantBras);
-			glTranslatef(0, 0, 5.15);
-			glRotatef(90, 1, 0, 0);
-			glColor3f(0.5, 0.5, 1.0);
-			glCallList(Ma_Paume);
+			glPushMatrix();
+			{
+				glTranslatef(0, 0, 5.25);
+				glTranslatef(0, 0.25, 0);
+				glRotatef(90, 1, 0, 0);
+				glColor3f(0.5, 0.5, 1.0);
+				glCallList(Ma_Paume);
+			}
+			glPopMatrix();
 		}
 		glPopMatrix();
 	}

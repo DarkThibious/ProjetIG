@@ -18,9 +18,9 @@
 #define    windowWidth 300
 #define    windowHeight 300
 
-#define RED   0
-#define GREEN 0
-#define BLUE  0
+#define RED   0.5
+#define GREEN 0.5
+#define BLUE  0.5
 #define ALPHA 1
 
 enum lateralite {Gauche = 0, Droit};
