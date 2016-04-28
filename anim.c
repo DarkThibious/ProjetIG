@@ -42,6 +42,7 @@ GLvoid window_key(unsigned char key, int x, int y)
 			break;
 		case 'w':
 			doing = WALK;
+			break;
 		case '+':  
 			delta *= 1.05;
 			break; 
