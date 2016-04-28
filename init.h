@@ -82,6 +82,20 @@ extern float med_AvantBras;
 extern float med_Cuisse;
 extern float med_Mollet;
 
+extern float angle_Bras_Ini_R[2];
+extern float angle_AvantBras_Ini_R[2];
+extern float angle_Cuisse_Ini_R[2];
+extern float angle_Mollet_Ini_R[2];
+
+extern float amplitude_Bras_R;
+extern float amplitude_AvantBras_R;
+extern float amplitude_Cuisse_R;
+extern float amplitude_Mollet_R;
+extern float med_Bras_R;
+extern float med_AvantBras_R;
+extern float med_Cuisse_R;
+extern float med_Mollet_R;
+
 GLvoid initGL();
 void init_scene();
 void init_angles();

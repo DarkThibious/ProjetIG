@@ -29,5 +29,6 @@ GLvoid window_special_key(int key, int x, int y);
 GLvoid window_timer(); 
 
 void runCalc();
+void walkCalc();
 
 #endif

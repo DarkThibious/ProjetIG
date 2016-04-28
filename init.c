@@ -53,7 +53,22 @@ float med_AvantBras;
 float med_Cuisse;
 float med_Mollet;
 
-// initialisation du fond de la fenêtre graphique : noir opaque
+
+float angle_Bras_Ini_R[2] = {-35.0, 45.0};
+float angle_AvantBras_Ini_R[2] = {90.0, 90.0};
+float angle_Cuisse_Ini_R[2] = {45.0, -30.0};
+float angle_Mollet_Ini_R[2] = {-5.0, -45.0};
+
+float amplitude_Bras_R;
+float amplitude_AvantBras_R;
+float amplitude_Cuisse_R;
+float amplitude_Mollet_R;
+float med_Bras_R;
+float med_AvantBras_R;
+float med_Cuisse_R;
+float med_Mollet_R;
+
+// initialisation du fond de la fenêtre graphique : GRIS //noir opaque
 GLvoid initGL() 
 {
 	// initialisation de l´éclairement
@@ -99,6 +114,15 @@ void init_scene()
 	med_AvantBras = .5 * (angle_AvantBras_Ini[Droit] + angle_AvantBras_Ini[Gauche]);
 	med_Cuisse = .5 * (angle_Cuisse_Ini[Droit] + angle_Cuisse_Ini[Gauche]);
 	med_Mollet = .5 * (angle_Mollet_Ini[Droit] + angle_Mollet_Ini[Gauche]);
+
+	amplitude_Bras_R = .5 * (angle_Bras_Ini_R[Droit] - angle_Bras_Ini_R[Gauche]);
+	amplitude_AvantBras_R = .5 * (angle_AvantBras_Ini_R[Droit] - angle_AvantBras_Ini_R[Gauche]);
+	amplitude_Cuisse_R = .5 * (angle_Cuisse_Ini_R[Droit] - angle_Cuisse_Ini_R[Gauche]);
+	amplitude_Mollet_R = .5 * (angle_Mollet_Ini_R[Droit] - angle_Mollet_Ini_R[Gauche]);
+	med_Bras_R = .5 * (angle_Bras_Ini_R[Droit] + angle_Bras_Ini_R[Gauche]);
+	med_AvantBras_R = .5 * (angle_AvantBras_Ini_R[Droit] + angle_AvantBras_Ini_R[Gauche]);
+	med_Cuisse_R = .5 * (angle_Cuisse_Ini_R[Droit] + angle_Cuisse_Ini_R[Gauche]);
+	med_Mollet_R = .5 * (angle_Mollet_Ini_R[Droit] + angle_Mollet_Ini_R[Gauche]);
 }
 
 void Faire_Composantes() 

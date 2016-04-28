@@ -16,7 +16,7 @@ int angleVisZ = 180;
 int angleVisX = 0;
 
 int prevDoing;
-int doing = RUN;
+int doing = WALK;
 
 // fonction de call-back pour la gestion des événements clavier
 GLvoid window_key(unsigned char key, int x, int y) 
@@ -37,6 +37,11 @@ GLvoid window_key(unsigned char key, int x, int y)
 				doing = prevDoing;
 			}
 			break;
+		case 'r':
+			doing = RUN;
+			break;
+		case 'w':
+			doing = WALK;
 		case '+':  
 			delta *= 1.05;
 			break; 
@@ -72,6 +77,9 @@ GLvoid window_timer(int value)
 		t += delta;
 		switch(doing)
 		{
+			case WALK:
+				walkCalc();
+				break;
 			case RUN:
 				runCalc();
 				break;
@@ -81,7 +89,7 @@ GLvoid window_timer(int value)
 	glutPostRedisplay();
 }
 
-void runCalc()
+void walkCalc()
 {
 	// On effectue une variation des angles de chaque membre
 	// de l'amplitude associée et de la position médiane
@@ -94,6 +102,24 @@ void runCalc()
 	angle_Cuisse[Droit] = med_Cuisse - amplitude_Cuisse * sin_k_t;
 	angle_Mollet[Gauche] = med_Mollet + amplitude_Mollet * sin_k_t;
 	angle_Mollet[Droit] = med_Mollet - amplitude_Mollet * sin_k_t;
+
+	// On déplace la position de l'avatar pour qu'il avance
+	position = K*t;
+}
+
+void runCalc()
+{
+	// On effectue une variation des angles de chaque membre
+	// de l'amplitude associée et de la position médiane
+	sin_k_t = sin(k*t);
+	angle_Bras[Gauche] = med_Bras_R + amplitude_Bras_R * sin_k_t;
+	angle_Bras[Droit] = med_Bras_R - amplitude_Bras_R * sin_k_t;
+	angle_AvantBras[Gauche] = med_AvantBras_R + amplitude_AvantBras_R * sin_k_t;
+	angle_AvantBras[Droit] = med_AvantBras_R - amplitude_AvantBras_R * sin_k_t;
+	angle_Cuisse[Gauche] = med_Cuisse_R + amplitude_Cuisse_R * sin_k_t;
+	angle_Cuisse[Droit] = med_Cuisse_R - amplitude_Cuisse_R * sin_k_t;
+	angle_Mollet[Gauche] = med_Mollet_R + amplitude_Mollet_R * sin_k_t;
+	angle_Mollet[Droit] = med_Mollet_R - amplitude_Mollet_R * sin_k_t;
 
 	// On déplace la position de l'avatar pour qu'il avance
 	position = K*t;
