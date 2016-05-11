@@ -52,7 +52,9 @@ extern int Mon_Mollet;
 extern int Ma_Paume;
 extern int Mon_Pouce;
 extern int Mon_Doigt;
-
+extern int Mon_Epaule;
+extern int Mon_Coude;
+extern int Mon_Genou;
 
 /* des accessoires */
 extern int Mon_Chapeau;

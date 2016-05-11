@@ -26,6 +26,9 @@ int Mon_Mollet;
 int Ma_Paume;
 int Mon_Doigt;
 int Mon_Pouce;
+int Mon_Epaule;
+int Mon_Coude;
+int Mon_Genou;
 
 int Mon_Chapeau;
 int Mon_Papillon;
@@ -130,7 +133,7 @@ void Faire_Composantes()
 	GLUquadricObj* GLAPIENTRY qobj;
 
 	// attribution des indentificateurs de display lists
-	Ma_Tete =  glGenLists(10);
+	Ma_Tete =  glGenLists(13);
 	Mon_Tronc = Ma_Tete + 1;
 	Mon_Bras = Ma_Tete + 2;
 	Mon_AvantBras = Ma_Tete + 3;
@@ -140,15 +143,18 @@ void Faire_Composantes()
 	Mon_Papillon = Ma_Tete + 7;
 	Ma_Paume = Ma_Tete + 8;
 	Mon_Doigt = Ma_Tete + 9;
-
-
+	Mon_Epaule = Ma_Tete + 10;
+	Mon_Coude = Ma_Tete + 11;
+	Mon_Genou = Ma_Tete + 12;
+	
 	make_base();
 	make_triangle();
 	make_Pyramide();
 
 	glNewList(Ma_Tete,GL_COMPILE);	
 	{
-		glutSolidSphere(1.5,20,20);	
+		glScalef(1, 1, 1.5);
+		glutSolidSphere(1,20,20);	
 	}
 	glEndList();
 
@@ -161,40 +167,57 @@ void Faire_Composantes()
 
 	glNewList(Mon_Tronc, GL_COMPILE);
 	{
-		gluDisk(qobj, 0.0, 2.5, 20, 20);
-		gluCylinder(qobj, 2.5, 2.5, 7.0, 20, 20);
 		glPushMatrix();
 		{
+			glScalef(1, 0.65, 1);
+			gluDisk(qobj, 0.0, 2.5, 20, 20);
+			gluCylinder(qobj, 2.5, 2.5, 7.0, 20, 20);
 			glTranslatef(0, 0, 7.0);
 			gluDisk(qobj, 0.0, 2.5, 20, 20);
 		}
 		glPopMatrix();
 	}
 	glEndList();
+	
 	glNewList(Mon_Bras, GL_COMPILE);
 	{
-		gluDisk(qobj, 0.0, 0.5, 20, 20);
-		gluCylinder(qobj, 0.5, 0.5, 5.0, 20, 20);
 		glPushMatrix();
 		{
-			glTranslatef(0, 0, 5);
+			gluDisk(qobj, 0.0, 0.5, 20, 20);
+			gluCylinder(qobj, 0.5, 0.5, 4.5, 20, 20);
+			glTranslatef(0, 0, 4.5);
 			gluDisk(qobj, 0.0, 0.5, 20, 20);
 		}
 		glPopMatrix();
 	}
 	glEndList();
+	
+		glNewList(Mon_Epaule, GL_COMPILE);
+	{
+		glutSolidSphere(0.5,20,20);	
+	}
+	glEndList();
+	
 	glNewList(Mon_AvantBras, GL_COMPILE);
 	{
 		gluDisk(qobj, 0.0, 0.5, 20, 20);
-		gluCylinder(qobj, 0.5, 0.25, 5.0, 20, 20);
+		gluCylinder(qobj, 0.5, 0.25, 4.5, 20, 20); 
 		glPushMatrix();
 		{
-			glTranslatef(0, 0, 5);
+			glTranslatef(0, 0, 4.5);
 			gluDisk(qobj, 0.0, 0.25, 20, 20);
 		}
 		glPopMatrix();
 	}
 	glEndList();
+	
+	glNewList(Mon_Coude, GL_COMPILE);
+	{
+		glutSolidSphere(0.5,20,20);	
+	}
+	glEndList();
+
+	
 	glNewList(Ma_Cuisse, GL_COMPILE);
 	{
 		gluDisk(qobj, 0.0, 1.25, 20, 20);
@@ -207,6 +230,13 @@ void Faire_Composantes()
 		glPopMatrix();
 	}
 	glEndList();
+	
+	glNewList(Mon_Genou, GL_COMPILE);
+	{
+		glutSolidSphere(0.75,20,20);	
+	}
+	glEndList();
+	
 	glNewList(Mon_Mollet, GL_COMPILE);
 	{
 		gluDisk(qobj, 0.0, 0.75, 20, 20);
@@ -219,6 +249,7 @@ void Faire_Composantes()
 		glPopMatrix();
 	}
 	glEndList();
+	
 	glNewList(Mon_Chapeau, GL_COMPILE);
 	{
 		gluDisk(qobj, 0.0, 2, 20, 20);
@@ -238,6 +269,7 @@ void Faire_Composantes()
 		glPopMatrix();
 	}
 	glEndList();
+	
 	glNewList(Ma_Paume, GL_COMPILE);
 	{
 		gluDisk(qobj, 0.0, 0.35, 20, 20);
@@ -250,6 +282,7 @@ void Faire_Composantes()
 		glPopMatrix();
 	}
 	glEndList();
+	
 	glNewList(Mon_Doigt, GL_COMPILE);
 	{
 		gluDisk(qobj, 0.0, 0.1, 20, 20);
@@ -262,6 +295,7 @@ void Faire_Composantes()
 		glPopMatrix();
 	}
 	glEndList();
+	
 	glNewList(Mon_Papillon, GL_COMPILE);
 	{
 		glPushMatrix();
