@@ -30,6 +30,7 @@ int Mon_Epaule;
 int Mon_Coude;
 int Mon_Genou;
 
+int Ma_Robe;
 int Mon_Chapeau;
 int Mon_Papillon;
 
@@ -58,7 +59,7 @@ float med_Mollet;
 
 
 float angle_Bras_Ini_R[2] = {-35.0, 45.0};
-float angle_AvantBras_Ini_R[2] = {90.0, 90.0};
+float angle_AvantBras_Ini_R[2] = {90.0, 85.0};
 float angle_Cuisse_Ini_R[2] = {45.0, -30.0};
 float angle_Mollet_Ini_R[2] = {-5.0, -45.0};
 
@@ -133,7 +134,7 @@ void Faire_Composantes()
 	GLUquadricObj* GLAPIENTRY qobj;
 
 	// attribution des indentificateurs de display lists
-	Ma_Tete =  glGenLists(13);
+	Ma_Tete =  glGenLists(14);
 	Mon_Tronc = Ma_Tete + 1;
 	Mon_Bras = Ma_Tete + 2;
 	Mon_AvantBras = Ma_Tete + 3;
@@ -146,6 +147,7 @@ void Faire_Composantes()
 	Mon_Epaule = Ma_Tete + 10;
 	Mon_Coude = Ma_Tete + 11;
 	Mon_Genou = Ma_Tete + 12;
+	Ma_Robe = Ma_Tete + 13;
 	
 	make_base();
 	make_triangle();
@@ -166,13 +168,25 @@ void Faire_Composantes()
 	gluQuadricNormals(qobj, GLU_SMOOTH);
 
 	glNewList(Mon_Tronc, GL_COMPILE);
-	{
+	{ 
+		// Partie supérieure du buste
 		glPushMatrix();
 		{
+			glTranslatef(0, 0, 3.5);
 			glScalef(1, 0.65, 1);
+			gluDisk(qobj, 0.0, 1.5, 20, 20);
+			gluCylinder(qobj, 1.5, 2.5, 3.5, 20, 20);
+			glTranslatef(0, 0, 3.5);
 			gluDisk(qobj, 0.0, 2.5, 20, 20);
-			gluCylinder(qobj, 2.5, 2.5, 7.0, 20, 20);
-			glTranslatef(0, 0, 7.0);
+		}
+		glPopMatrix();
+		
+		// Partie inférieure du buste		
+		glPushMatrix();
+		{		
+			glScalef(1, 0.65, 1);
+			gluDisk(qobj, 0.0, 1.5, 20, 20);
+			gluCylinder(qobj, 2.5, 1.5, 3.5, 20, 20);
 			gluDisk(qobj, 0.0, 2.5, 20, 20);
 		}
 		glPopMatrix();
@@ -305,6 +319,20 @@ void Faire_Composantes()
 			glRotatef(180,0,1,0);
 			glCallList(My_Pyramide);
 		}
+	glPopMatrix();
+	}
+	glEndList();
+	
+	glNewList(Ma_Robe, GL_COMPILE);
+	{
+		glPushMatrix();
+		{
+			//glScalef(1, 0.65, 1);
+			//gluDisk(qobj, 0.0, 1.5, 20, 20);
+			gluCylinder(qobj, 3, 1.51, 7, 20, 20); //4 2.5
+
+		}
+	glPopMatrix();	
 	}
 	glEndList();
 }

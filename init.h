@@ -59,6 +59,7 @@ extern int Mon_Genou;
 /* des accessoires */
 extern int Mon_Chapeau;
 extern int Mon_Papillon;
+extern int Ma_Robe;
 
 /* des formes */
 extern int My_Triangle;

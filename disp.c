@@ -68,10 +68,21 @@ void render_scene()
 	}
 	glPopMatrix();
 
+
+	//tracé de la robe	
+	glColor3f(1.0, 1.0, 0.0);
+	glPushMatrix();
+	{
+		glTranslatef(0, 0, -3.5);
+		glCallList(Ma_Robe);
+	}
+	glPopMatrix();
+	
+	
 	// tracé de la cuisse droite avec une translation vers
 	// la droite et une rotation de 180° autour de Ox
 	// pour l´orienter vers le bas
-	glColor3f(1.0, 0.0, 0.0);
+	glColor3f(1.0, 1.0, 0.0);
 	glPushMatrix();
 	{
 		glRotatef(180,1,0,0);
@@ -85,7 +96,7 @@ void render_scene()
 		// du genou
 		glPushMatrix();
 		{
-			glColor3f(1.0, 0.25, 0.25);
+			glColor3f(1.0, 1.0, 0.0);
 			glTranslatef(0, 0, 5);
 			glCallList(Mon_Genou);
 			glRotatef(angle_Mollet[Droit],1,0,0);
@@ -97,14 +108,14 @@ void render_scene()
 
 	// cuisse et mollet gauches
 	// seule la translation initiale change
-	glColor3f(1.0, 0.0, 0.0);
+	glColor3f(1.0, 1.0, 0.0);
 	glPushMatrix();
 	{
 		glRotatef(180,1,0,0);
 		glTranslatef(-1.25, 0, 0);
 		glRotatef(angle_Cuisse[Gauche],1,0,0);
 		glCallList(Ma_Cuisse);
-		glColor3f(1.0, 0.25, 0.25);
+		glColor3f(1.0, 1.0, 0.0);
 		glTranslatef(0, 0, 5);
 		glCallList(Mon_Genou);
 		glRotatef(angle_Mollet[Gauche],1,0,0);
@@ -116,7 +127,7 @@ void render_scene()
 	// la droite et vers le haut composée avec une 
 	// rotation de 180° autour de Ox pour l´orienter
 	// vers le bas
-	glColor3f(0.0, 0.0, 1.0);
+	glColor3f(1.0, 1.0, 0.0);
 	glPushMatrix();
 	{	
 		glTranslatef(3, 0, 6.5);
@@ -131,7 +142,7 @@ void render_scene()
 		// du coude
 		glPushMatrix();
 		{
-			glColor3f(0.25, 0.25, 1.0);
+			glColor3f(1.0, 1.0, 0.0);
 			glTranslatef(0, 0, 4.75);
 			glCallList(Mon_Coude);
 			glRotatef(angle_AvantBras[Droit],1,0,0);
@@ -140,7 +151,7 @@ void render_scene()
 			{
 				glTranslatef(0, 0.25, 4.75);
 				glRotatef(90, 1, 0, 0);
-				glColor3f(0.5, 0.5, 1.0);
+				glColor3f(1.0, 1.0, 0.0);
 				glCallList(Ma_Paume);
 				glPushMatrix();
 				{
@@ -192,7 +203,7 @@ void render_scene()
 
 	// bras et avant-bras gauches
 	// seule la translation initiale change
-	glColor3f(0.0, 0.0, 1.0);
+	glColor3f(1.0, 1.0, 0.0);
 	glPushMatrix();
 	{
 		glTranslatef(-3, 0, 6.5);
@@ -202,7 +213,7 @@ void render_scene()
 		glCallList(Mon_Bras);
 		glPushMatrix();
 		{
-			glColor3f(0.25, 0.25, 1.0);
+			glColor3f(1.0, 1.0, 0.0);
 			glTranslatef(0, 0, 4.75);
 			glCallList(Mon_Coude);
 			glRotatef(angle_AvantBras[Gauche],1,0,0);
@@ -211,7 +222,7 @@ void render_scene()
 			{
 				glTranslatef(0, 0.25, 4.75);
 				glRotatef(90, 1, 0, 0);
-				glColor3f(0.5, 0.5, 1.0);
+				glColor3f(1.0, 1.0, 0.0);
 				glCallList(Ma_Paume);
 				glPushMatrix();
 				{
@@ -271,7 +282,8 @@ void render_scene()
 
 	//dessin du noeud papillon
 	glColor3f(0, 0, 0); 
-	{
+		glPushMatrix();
+		{
 		glTranslatef(-1,2.5,6);
 		glRotatef(90, 0, 1, 0);
 		glScalef(0.75,0.25,2);
