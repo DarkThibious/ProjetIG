@@ -5,6 +5,8 @@ float delta = 10.f;
 float k = 0.001f;
 float K = 0.002f;
 
+float l = 0.5f;
+
 float position = position_Ini;
 
 float sin_k_t = 0;
@@ -16,7 +18,9 @@ int angleVisZ = 180;
 int angleVisX = 0;
 
 int prevDoing;
-int doing = WALK;
+int doing = IDLE;
+
+bool standing;
 
 // fonction de call-back pour la gestion des événements clavier
 GLvoid window_key(unsigned char key, int x, int y) 
@@ -42,6 +46,12 @@ GLvoid window_key(unsigned char key, int x, int y)
 			break;
 		case 'w':
 			doing = WALK;
+			break;
+		case 'i':
+			doing = IDLE;
+			break;
+		case 's':
+			doing = SEAT;
 			break;
 		case '+':  
 			delta *= 1.05;
@@ -84,6 +94,11 @@ GLvoid window_timer(int value)
 			case RUN:
 				runCalc();
 				break;
+			case IDLE:
+				idleCalc();
+				break;
+			case SEAT:
+				seatCalc();
 		}
 	}
 	glutTimerFunc(latence,&window_timer,++Step);
@@ -106,6 +121,7 @@ void walkCalc()
 
 	// On déplace la position de l'avatar pour qu'il avance
 	position = K*t;
+	standing = false;
 }
 
 void runCalc()
@@ -124,4 +140,87 @@ void runCalc()
 
 	// On déplace la position de l'avatar pour qu'il avance
 	position = K*t;
+	standing = false;
+}
+
+void seatCalc()
+{
+	if(standing == false)
+	{
+		idleCalc();
+	}
+}
+
+void idleCalc()
+{
+	if(standing == false)
+	{
+		if(angle_Bras[Gauche] > 0)
+		{
+			angle_Bras[Gauche] -= l;
+		}
+		if(angle_Bras[Gauche] < 0)
+		{
+			angle_Bras[Gauche] += l;
+		}
+		if(angle_Bras[Droit] > 0)
+		{
+			angle_Bras[Droit] -= l;
+		}
+		if(angle_Bras[Droit] < 0)
+		{
+			angle_Bras[Droit] += l;
+		}
+
+		if(angle_AvantBras[Gauche] > 0)
+		{
+			angle_AvantBras[Gauche] -= 2*l;
+		}
+		if(angle_AvantBras[Gauche] < 0)
+		{
+			angle_AvantBras[Gauche] += 2*l;
+		}
+		if(angle_AvantBras[Droit] > 0)
+		{
+			angle_AvantBras[Droit] -= 2*l;
+		}
+		if(angle_AvantBras[Droit] < 0)
+		{
+			angle_AvantBras[Droit] += 2*l;
+		}
+
+		if(angle_Cuisse[Gauche] > 0)
+		{
+			angle_Cuisse[Gauche] -= 2*l;
+		}
+		if(angle_Cuisse[Gauche] < 0)
+		{
+			angle_Cuisse[Gauche] += 2*l;
+		}
+		if(angle_Cuisse[Droit] > 0)
+		{
+			angle_Cuisse[Droit] -= 2*l;
+		}
+		if(angle_Cuisse[Droit] < 0)
+		{
+			angle_Cuisse[Droit] += 2*l;
+		}
+
+		if(angle_Mollet[Gauche] > 0)
+		{
+			angle_Mollet[Gauche] -= 2*l;
+		}
+		if(angle_Mollet[Gauche] < 0)
+		{
+			angle_Mollet[Gauche] += 2*l;
+		}
+		if(angle_Mollet[Droit] > 0)
+		{
+			angle_Mollet[Droit] -= 2*l;
+		}
+		if(angle_Mollet[Droit] < 0)
+		{
+			angle_Mollet[Droit] += 2*l;
+		}
+	}
 }

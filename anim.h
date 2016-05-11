@@ -5,7 +5,7 @@
 
 #define KEY_ESC 27
 
-enum action {STOP, IDLE, RUN, WALK};
+enum action {STOP, IDLE, RUN, WALK, SEAT};
 
 extern float t;
 extern float delta;
@@ -30,5 +30,5 @@ GLvoid window_timer();
 
 void runCalc();
 void walkCalc();
-
+void seatCalc();
 #endif
