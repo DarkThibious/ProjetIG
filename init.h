@@ -10,10 +10,12 @@
 #include <stdbool.h>
 #include <math.h>
 #include <tiffio.h>     /* Sam Leffler's libtiff library. */
+#include "formes.h"
 
 #define PI 3.1415926535898
 
-#define position_Ini -60.0
+#define position_Ini_X 0.0
+#define position_Ini_Y 0.0
 
 #define    windowWidth 300
 #define    windowHeight 300
@@ -23,7 +25,36 @@
 #define BLUE  0.5
 #define ALPHA 1
 
-enum lateralite {Gauche = 0, Droit};
+#define TETE_R 1.5
+
+#define TRONC_R 2.5
+#define TRONC_H 7.0
+#define TRONC_SCL_Y 0.75
+
+#define BRAS_R 0.5
+#define BRAS_H 4.5
+
+#define PAUME_R 0.35
+#define PAUME_H 0.5
+
+#define DOIGT_R 0.1
+#define DOIGT_H 0.5
+
+#define CUISSE_R TRONC_R/2
+#define CUISSE_H 5
+
+#define MOLLET_R1 CUISSE_R - 0.5
+#define MOLLET_R2 MOLLET_R1 - 0.5
+
+#define CHAPEAU_R1 2
+#define CHAPEAU_H1 0.5
+#define CHAPEAU_R2 1.5
+#define CHAPEAU_H2 3 
+
+#define PAPILLON_H TRONC_H-0.5
+
+enum lateralite {GAUCHE = 0, DROITE};
+enum action {WALK = 0, RUN, SEAT, STOP, IDLE};
 
 static GLfloat light_position0[];
 static GLfloat light_position1[];
@@ -42,6 +73,9 @@ static GLfloat mat_shininess[];
 
 extern int Mon_Repere;
 
+extern entity homme;
+extern entity chaise;
+
 /* des parties du corps */
 extern int Ma_Tete;
 extern int Mon_Tronc;
@@ -55,11 +89,11 @@ extern int Mon_Doigt;
 extern int Mon_Epaule;
 extern int Mon_Coude;
 extern int Mon_Genou;
+extern int Mon_Bassin;
 
 /* des accessoires */
 extern int Mon_Chapeau;
 extern int Mon_Papillon;
-extern int Ma_Robe;
 
 /* des formes */
 extern int My_Triangle;
@@ -108,5 +142,8 @@ void Dessine_Repere();
 void make_triangle();
 void make_base();
 void make_Pyramide();
+void make_Chaise();
+void make_square();
+void make_cube();
 
 #endif
