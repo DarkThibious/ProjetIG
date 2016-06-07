@@ -218,39 +218,39 @@ void initHomme()
 
 	// Coude
 	e = homme.compo[EPAULE_DROITE].compo->compo;
-	e.color[R] = -1;
-	e.color[G] = -1;
-	e.color[B] = -1;
-	e.pos[X] = 0;
-	e.pos[Y] = 0;
-	e.pos[Z] = -(BRAS_H+BRAS_R/2);
-	e.rotat[X] = 1;
-	e.rotat[Y] = 0;
-	e.rotat[Z] = 0;
-	e.rotat[ANGLE] = 0;
-	e.angle_Ini[MIN] = 0;
-	e.angle_Ini[MAX] = 0;
-	e.listeDessin = Mon_Coude;
-	e.nbCompo = 1; // Avant-Bras
-	e.compo = malloc(sizeof(entity));
+	e->color[R] = -1;
+	e->color[G] = -1;
+	e->color[B] = -1;
+	e->pos[X] = 0;
+	e->pos[Y] = 0;
+	e->pos[Z] = -(BRAS_H+BRAS_R/2);
+	e->rotat[X] = 1;
+	e->rotat[Y] = 0;
+	e->rotat[Z] = 0;
+	e->rotat[ANGLE] = 0;
+	e->angle_Ini[MIN] = 0;
+	e->angle_Ini[MAX] = 0;
+	e->listeDessin = Mon_Coude;
+	e->nbCompo = 1; // Avant-Bras
+	e->compo = malloc(sizeof(entity));
 	
 	// Avant-Bras
-	e = e.compo;
-	e.color[R] = -1;
-	e.color[G] = -1;
-	e.color[B] = -1;
-	e.pos[X] = 0;
-	e.pos[Y] = 0;
-	e.pos[Z] = 0;
-	e.rotat[X] = 0;
-	e.rotat[Y] = 0;
-	e.rotat[Z] = 0;
-	e.rotat[ANGLE] = 0;
-	e.angle_Ini[MIN] = 0;
-	e.angle_Ini[MAX] = 0;
-	e.listeDessin = Mon_Coude;
-	e.nbCompo = 1; // Avant-Bras
-	e.compo = malloc(sizeof(entity));
+	e = e->compo;
+	e->color[R] = -1;
+	e->color[G] = -1;
+	e->color[B] = -1;
+	e->pos[X] = 0;
+	e->pos[Y] = 0;
+	e->pos[Z] = 0;
+	e->rotat[X] = 0;
+	e->rotat[Y] = 0;
+	e->rotat[Z] = 0;
+	e->rotat[ANGLE] = 0;
+	e->angle_Ini[MIN] = 0;
+	e->angle_Ini[MAX] = 0;
+	e->listeDessin = Mon_Coude;
+	e->nbCompo = 1; // Avant-Bras
+	e->compo = malloc(sizeof(entity));
 
 }
 
