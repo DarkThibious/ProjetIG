@@ -76,15 +76,19 @@ GLvoid window_key(unsigned char key, int x, int y)
 			break; 
 		case 'z':
 			direction_Y = 1;
+			deterAngle();
 			break;
 		case 's': 
 			direction_Y = -1;
+			deterAngle();
 			break;
 		case 'd': 
 			direction_X = 1;
+			deterAngle();
 			break;
 		case 'q': 
 			direction_X = -1;
+			deterAngle();
 			break;
 	}     
 }
@@ -144,7 +148,6 @@ GLvoid window_timer(int value)
 				seatCalc();
 		}
 	}
-	printf("posX : %f, dirX : %d, posY : %f, dirY : %d, vitesse : %f\n", position_X, direction_X, position_Y, direction_Y, vitesse);
 	position_X += direction_X*vitesse;
 	position_Y += direction_Y*vitesse;
 	transitionnage();
@@ -352,5 +355,34 @@ void transitionnage()
 			}
 		}
 		T = T->next;
+	}
+}
+
+void deterAngle()
+{
+	int angleX, angleY, angle;
+	if(direction_Y == 1)
+	{
+		angleY = 0;
+		angle = angleY;
+	}
+	else if(direction_Y == -1)
+	{
+		angleY = 180;
+		angle = angleY;
+	}
+	if(direction_X == 1)
+	{
+		angleX = -90;
+		angle = angleX;
+	}
+	else if(direction_X == -1)
+	{
+		angleX = 90;
+		angle = angleX;
+	}
+	if(direction_Y != 0 && direction_X != 0)
+	{
+		angle = (angleX + angleY)/2;
 	}
 }

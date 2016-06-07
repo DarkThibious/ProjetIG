@@ -42,7 +42,6 @@ void render_scene()
 	// voir la figure en perspective
 	//glRotatef(25, 0, 1, 0);
 
-  
 	glRotatef(angleVisZ, 0 , 0, 1);
 	glRotatef(angleVisX, 1 , 0, 0);
 
@@ -50,7 +49,8 @@ void render_scene()
 
 	Dessine_Repere();
 
-	dessin_bonhomme();
+	drawEntity(homme);
+	//dessin_bonhomme();
 	glColor3f(0.5,1,0.5);
 	glPushMatrix();
 	{
@@ -100,7 +100,6 @@ void dessin_bonhomme()
 		glCallList(Mon_Bassin);
 		glPushMatrix();
 		{
-			glRotatef(180,1,0,0);
 			glRotatef(angle_Cuisse[DROITE],1,0,0);
 			glTranslatef(CUISSE_R-0.1, 0, -TRONC_R/10-0.05);
 			glCallList(Ma_Cuisse);
@@ -112,7 +111,7 @@ void dessin_bonhomme()
 			glPushMatrix();
 			{
 				glColor3f(1.0, 0.25, 0.25);
-				glTranslatef(0, 0, CUISSE_H);
+				glTranslatef(0, 0, -CUISSE_H);
 				glRotatef(angle_Mollet[DROITE],1,0,0);
 				glCallList(Mon_Genou);
 				glCallList(Mon_Mollet);
@@ -126,12 +125,11 @@ void dessin_bonhomme()
 		glColor3f(1.0, 0.0, 0.0);
 		glPushMatrix();
 		{
-			glRotatef(180,1,0,0);
 			glRotatef(angle_Cuisse[GAUCHE],1,0,0);
 			glTranslatef(-(CUISSE_R-0.1), 0, -TRONC_R/10-0.05);
 			glCallList(Ma_Cuisse);
 			glColor3f(1.0, 0.25, 0.25);
-			glTranslatef(0, 0, CUISSE_H);
+			glTranslatef(0, 0, -CUISSE_H);
 			glRotatef(angle_Mollet[GAUCHE],1,0,0);
 			glCallList(Mon_Genou);
 			glCallList(Mon_Mollet);
@@ -165,8 +163,7 @@ void dessin_bonhomme()
 				{
 					glTranslatef(0, 0, -(BRAS_H+BRAS_R/2));
 					glTranslatef(-PAUME_H/2, 0, 0);
-					glRotatef(90, 1, 0, 0);
-					glRotatef(90, 0, 1, 0);
+					glRotatef(180, 1, 1, 0);
 					glColor3f(0.5, 0.5, 1.0);
 					glCallList(Ma_Paume);
 					glPushMatrix();
@@ -304,6 +301,31 @@ void dessin_bonhomme()
 			glCallList(Mon_Papillon);
 		}
 		glPopMatrix();
+	}
+	glPopMatrix();
+}
+
+void drawEntity(entity e)
+{
+	printf("%d\n", e.listeDessin);
+	int i;
+	if(e.color[R] != -1.0 && e.color[G] != -1.0 && e.color[B] != -1.0)
+	{
+		glColor3f(e.color[R], e.color[G], e.color[B]);
+	}
+	glPushMatrix();	
+	{
+		glRotatef(e.rotat[ANGLE], e.rotat[X], e.rotat[Y], e.rotat[Z]);
+		glTranslatef(e.pos[X], e.pos[Y], e.pos[Z]);
+		glCallList(e.listeDessin);
+		for(i=0;i<e.nbCompo;i++)
+		{
+			if(e.color[R] != -1.0 && e.color[G] != -1.0 && e.color[B] != -1.0)
+			{
+				glColor3f(e.color[R], e.color[G], e.color[B]);
+			}
+			drawEntity(e.compo[i]);
+		}
 	}
 	glPopMatrix();
 }

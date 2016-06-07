@@ -41,16 +41,16 @@
 #define DOIGT_R 0.1
 #define DOIGT_H 0.5
 
-#define CUISSE_R TRONC_R/2
-#define CUISSE_H 5
+#define CUISSE_R TRONC_R/2.0
+#define CUISSE_H 5.0
 
 #define MOLLET_R1 CUISSE_R - 0.5
 #define MOLLET_R2 MOLLET_R1 - 0.5
 
-#define CHAPEAU_R1 2
+#define CHAPEAU_R1 2.0
 #define CHAPEAU_H1 0.5
 #define CHAPEAU_R2 1.5
-#define CHAPEAU_H2 3 
+#define CHAPEAU_H2 3.0 
 
 #define PAPILLON_H TRONC_H-0.5
 
