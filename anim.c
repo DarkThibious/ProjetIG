@@ -157,14 +157,14 @@ void walkCalc()
 	// On effectue une variation des angles de chaque membre
 	// de l'amplitude associée et de la position médiane
 	sin_k_t = sin(k*t);
-	angle_Bras[Gauche] = med_Bras + amplitude_Bras * sin_k_t;
-	angle_Bras[Droit] = med_Bras - amplitude_Bras * sin_k_t;
-	angle_AvantBras[Gauche] = med_AvantBras + amplitude_AvantBras * sin_k_t;
-	angle_AvantBras[Droit] = med_AvantBras - amplitude_AvantBras * sin_k_t;
-	angle_Cuisse[Gauche] = med_Cuisse + amplitude_Cuisse * sin_k_t;
-	angle_Cuisse[Droit] = med_Cuisse - amplitude_Cuisse * sin_k_t;
-	angle_Mollet[Gauche] = med_Mollet + amplitude_Mollet * sin_k_t;
-	angle_Mollet[Droit] = med_Mollet - amplitude_Mollet * sin_k_t;
+	angle_Bras[GAUCHE] = med_Bras + amplitude_Bras * sin_k_t;
+	angle_Bras[DROITE] = med_Bras - amplitude_Bras * sin_k_t;
+	angle_AvantBras[GAUCHE] = med_AvantBras + amplitude_AvantBras * sin_k_t;
+	angle_AvantBras[DROITE] = med_AvantBras - amplitude_AvantBras * sin_k_t;
+	angle_Cuisse[GAUCHE] = med_Cuisse + amplitude_Cuisse * sin_k_t;
+	angle_Cuisse[DROITE] = med_Cuisse - amplitude_Cuisse * sin_k_t;
+	angle_Mollet[GAUCHE] = med_Mollet + amplitude_Mollet * sin_k_t;
+	angle_Mollet[DROITE] = med_Mollet - amplitude_Mollet * sin_k_t;
 
 	// On déplace la position de l'avatar pour qu'il avance
 }
@@ -174,104 +174,104 @@ void runCalc()
 	// On effectue une variation des angles de chaque membre
 	// de l'amplitude associée et de la position médiane
 	sin_k_t = sin(k*t);
-	angle_Bras[Gauche] = med_Bras_R + amplitude_Bras_R * sin_k_t;
-	angle_Bras[Droit] = med_Bras_R - amplitude_Bras_R * sin_k_t;
-	angle_AvantBras[Gauche] = med_AvantBras_R + amplitude_AvantBras_R * sin_k_t;
-	angle_AvantBras[Droit] = med_AvantBras_R - amplitude_AvantBras_R * sin_k_t;
-	angle_Cuisse[Gauche] = med_Cuisse_R + amplitude_Cuisse_R * sin_k_t;
-	angle_Cuisse[Droit] = med_Cuisse_R - amplitude_Cuisse_R * sin_k_t;
-	angle_Mollet[Gauche] = med_Mollet_R + amplitude_Mollet_R * sin_k_t;
-	angle_Mollet[Droit] = med_Mollet_R - amplitude_Mollet_R * sin_k_t;
+	angle_Bras[GAUCHE] = med_Bras_R + amplitude_Bras_R * sin_k_t;
+	angle_Bras[DROITE] = med_Bras_R - amplitude_Bras_R * sin_k_t;
+	angle_AvantBras[GAUCHE] = med_AvantBras_R + amplitude_AvantBras_R * sin_k_t;
+	angle_AvantBras[DROITE] = med_AvantBras_R - amplitude_AvantBras_R * sin_k_t;
+	angle_Cuisse[GAUCHE] = med_Cuisse_R + amplitude_Cuisse_R * sin_k_t;
+	angle_Cuisse[DROITE] = med_Cuisse_R - amplitude_Cuisse_R * sin_k_t;
+	angle_Mollet[GAUCHE] = med_Mollet_R + amplitude_Mollet_R * sin_k_t;
+	angle_Mollet[DROITE] = med_Mollet_R - amplitude_Mollet_R * sin_k_t;
 }
 
 void seatCalc()
 {
-	if(angle_Cuisse[Gauche] < 85)
+	if(angle_Cuisse[GAUCHE] < 85)
 	{
-		angle_Cuisse[Gauche] += l;
+		angle_Cuisse[GAUCHE] += l;
 	}
-	if(angle_Cuisse[Droit] < 85)
+	if(angle_Cuisse[DROITE] < 85)
 	{
-		angle_Cuisse[Droit] += l;
+		angle_Cuisse[DROITE] += l;
 	}
-	if(angle_Mollet[Gauche] < -85)
+	if(angle_Mollet[GAUCHE] < -85)
 	{
-		angle_Cuisse[Gauche] -= l;
+		angle_Cuisse[GAUCHE] -= l;
 	}
-	if(angle_Mollet[Droit] < -85)
+	if(angle_Mollet[DROITE] < -85)
 	{
-		angle_Cuisse[Droit] -= l;
+		angle_Cuisse[DROITE] -= l;
 	}
 }
 
 void idleCalc()
 {
-		if(angle_Bras[Gauche] > 0)
+		if(angle_Bras[GAUCHE] > 0)
 		{
-			angle_Bras[Gauche] -= l;
+			angle_Bras[GAUCHE] -= l;
 		}
-		if(angle_Bras[Gauche] < 0)
+		if(angle_Bras[GAUCHE] < 0)
 		{
-			angle_Bras[Gauche] += l;
+			angle_Bras[GAUCHE] += l;
 		}
-		if(angle_Bras[Droit] > 0)
+		if(angle_Bras[DROITE] > 0)
 		{
-			angle_Bras[Droit] -= l;
+			angle_Bras[DROITE] -= l;
 		}
-		if(angle_Bras[Droit] < 0)
+		if(angle_Bras[DROITE] < 0)
 		{
-			angle_Bras[Droit] += l;
-		}
-
-		if(angle_AvantBras[Gauche] > 0)
-		{
-			angle_AvantBras[Gauche] -= 2*l;
-		}
-		if(angle_AvantBras[Gauche] < 0)
-		{
-			angle_AvantBras[Gauche] += 2*l;
-		}
-		if(angle_AvantBras[Droit] > 0)
-		{
-			angle_AvantBras[Droit] -= 2*l;
-		}
-		if(angle_AvantBras[Droit] < 0)
-		{
-			angle_AvantBras[Droit] += 2*l;
+			angle_Bras[DROITE] += l;
 		}
 
-		if(angle_Cuisse[Gauche] > 0)
+		if(angle_AvantBras[GAUCHE] > 0)
 		{
-			angle_Cuisse[Gauche] -= 2*l;
+			angle_AvantBras[GAUCHE] -= 2*l;
 		}
-		if(angle_Cuisse[Gauche] < 0)
+		if(angle_AvantBras[GAUCHE] < 0)
 		{
-			angle_Cuisse[Gauche] += 2*l;
+			angle_AvantBras[GAUCHE] += 2*l;
 		}
-		if(angle_Cuisse[Droit] > 0)
+		if(angle_AvantBras[DROITE] > 0)
 		{
-			angle_Cuisse[Droit] -= 2*l;
+			angle_AvantBras[DROITE] -= 2*l;
 		}
-		if(angle_Cuisse[Droit] < 0)
+		if(angle_AvantBras[DROITE] < 0)
 		{
-			angle_Cuisse[Droit] += 2*l;
+			angle_AvantBras[DROITE] += 2*l;
 		}
 
-		if(angle_Mollet[Gauche] > 0)
+		if(angle_Cuisse[GAUCHE] > 0)
 		{
-			angle_Mollet[Gauche] -= 2*l;
+			angle_Cuisse[GAUCHE] -= 2*l;
 		}
-		if(angle_Mollet[Gauche] < 0)
+		if(angle_Cuisse[GAUCHE] < 0)
 		{
-			angle_Mollet[Gauche] += 2*l;
+			angle_Cuisse[GAUCHE] += 2*l;
 		}
-		if(angle_Mollet[Droit] > 0)
+		if(angle_Cuisse[DROITE] > 0)
 		{
-			angle_Mollet[Droit] -= 2*l;
+			angle_Cuisse[DROITE] -= 2*l;
 		}
-		if(angle_Mollet[Droit] < 0)
+		if(angle_Cuisse[DROITE] < 0)
 		{
-			angle_Mollet[Droit] += 2*l;
+			angle_Cuisse[DROITE] += 2*l;
+		}
+
+		if(angle_Mollet[GAUCHE] > 0)
+		{
+			angle_Mollet[GAUCHE] -= 2*l;
+		}
+		if(angle_Mollet[GAUCHE] < 0)
+		{
+			angle_Mollet[GAUCHE] += 2*l;
+		}
+		if(angle_Mollet[DROITE] > 0)
+		{
+			angle_Mollet[DROITE] -= 2*l;
+		}
+		if(angle_Mollet[DROITE] < 0)
+		{
+			angle_Mollet[DROITE] += 2*l;
 		}
 }
 

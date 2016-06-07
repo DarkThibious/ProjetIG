@@ -101,7 +101,7 @@ void dessin_bonhomme()
 		glPushMatrix();
 		{
 			glRotatef(180,1,0,0);
-			glRotatef(angle_Cuisse[Droit],1,0,0);
+			glRotatef(angle_Cuisse[DROITE],1,0,0);
 			glTranslatef(CUISSE_R-0.1, 0, -TRONC_R/10-0.05);
 			glCallList(Ma_Cuisse);
 
@@ -113,7 +113,7 @@ void dessin_bonhomme()
 			{
 				glColor3f(1.0, 0.25, 0.25);
 				glTranslatef(0, 0, CUISSE_H);
-				glRotatef(angle_Mollet[Droit],1,0,0);
+				glRotatef(angle_Mollet[DROITE],1,0,0);
 				glCallList(Mon_Genou);
 				glCallList(Mon_Mollet);
 			}
@@ -127,12 +127,12 @@ void dessin_bonhomme()
 		glPushMatrix();
 		{
 			glRotatef(180,1,0,0);
-			glRotatef(angle_Cuisse[Gauche],1,0,0);
+			glRotatef(angle_Cuisse[GAUCHE],1,0,0);
 			glTranslatef(-(CUISSE_R-0.1), 0, -TRONC_R/10-0.05);
 			glCallList(Ma_Cuisse);
 			glColor3f(1.0, 0.25, 0.25);
 			glTranslatef(0, 0, CUISSE_H);
-			glRotatef(angle_Mollet[Gauche],1,0,0);
+			glRotatef(angle_Mollet[GAUCHE],1,0,0);
 			glCallList(Mon_Genou);
 			glCallList(Mon_Mollet);
 		}
@@ -146,8 +146,7 @@ void dessin_bonhomme()
 		glPushMatrix();
 		{	
 			glTranslatef(TRONC_R+BRAS_R, 0, TRONC_H-BRAS_R);
-			glRotatef(180,1,0,0);
-			glRotatef(angle_Bras[Droit],1,0,0);
+			glRotatef(angle_Bras[DROITE],1,0,0);
 			glCallList(Mon_Epaule);
 			glCallList(Mon_Bras);
 
@@ -158,13 +157,13 @@ void dessin_bonhomme()
 			glPushMatrix();
 			{
 				glColor3f(0.25, 0.25, 1.0);
-				glTranslatef(0, 0, BRAS_H+BRAS_R/2);
-				glRotatef(angle_AvantBras[Droit],1,0,0);
+				glTranslatef(0, 0, -(BRAS_H+BRAS_R/2));
+				glRotatef(angle_AvantBras[DROITE],1,0,0);
 				glCallList(Mon_Coude);
 				glCallList(Mon_AvantBras);
 				glPushMatrix();
 				{
-					glTranslatef(0, 0, BRAS_H+BRAS_R/2);
+					glTranslatef(0, 0, -(BRAS_H+BRAS_R/2));
 					glTranslatef(-PAUME_H/2, 0, 0);
 					glRotatef(90, 1, 0, 0);
 					glRotatef(90, 0, 1, 0);
@@ -176,35 +175,35 @@ void dessin_bonhomme()
 						glPushMatrix();
 						{
 							glRotatef(-100, 0, 1, 0);
-							glTranslatef(0, PAUME_H/2, PAUME_R);
+							glTranslatef(0, PAUME_H/2, -PAUME_R);
 							glCallList(Mon_Doigt);
 						}
 						glPopMatrix();
 						glPushMatrix();
 						{
 							glRotatef(-155, 0, 1, 0);
-							glTranslatef(0, 0.25, 0.3);
+							glTranslatef(0, PAUME_H/2, -PAUME_R);
 							glCallList(Mon_Doigt);
 						}
 						glPopMatrix();
 						glPushMatrix();
 						{
 							glRotatef(-180, 0, 1, 0);
-							glTranslatef(0, 0.25, 0.3);
+							glTranslatef(0, PAUME_H/2, -PAUME_R);
 							glCallList(Mon_Doigt);
 						}
 						glPopMatrix();
 						glPushMatrix();
 						{
 							glRotatef(-205, 0, 1, 0);
-							glTranslatef(0, 0.25, 0.3);
+							glTranslatef(0, PAUME_H/2, -PAUME_R);
 							glCallList(Mon_Doigt);
 						}
 						glPopMatrix();
 						glPushMatrix();
 						{
 							glRotatef(-230, 0, 1, 0);
-							glTranslatef(0, 0.25, 0.3);
+							glTranslatef(0, PAUME_H/2, -PAUME_R);
 							glCallList(Mon_Doigt);
 						}
 						glPopMatrix();
@@ -224,20 +223,19 @@ void dessin_bonhomme()
 		glPushMatrix();
 		{
 			glTranslatef(-(TRONC_R+BRAS_R), 0, TRONC_H-BRAS_R);
-			glRotatef(180,1,0,0);
-			glRotatef(angle_Bras[Gauche],1,0,0);
+			glRotatef(angle_Bras[GAUCHE],1,0,0);
 			glCallList(Mon_Epaule);
 			glCallList(Mon_Bras);
 			glPushMatrix();
 			{
 				glColor3f(0.25, 0.25, 1.0);
-				glTranslatef(0, 0, BRAS_H+BRAS_R/2);
-				glRotatef(angle_AvantBras[Gauche],1,0,0);
+				glTranslatef(0, 0, -(BRAS_H+BRAS_R/2));
+				glRotatef(angle_AvantBras[GAUCHE],1,0,0);
 				glCallList(Mon_Coude);
 				glCallList(Mon_AvantBras);
 				glPushMatrix();
 				{
-					glTranslatef(0, 0, BRAS_H+BRAS_R/2);
+					glTranslatef(0, 0,-(BRAS_H+BRAS_R/2));
 					glTranslatef(0.25, 0, 0);
 					glRotatef(90, 1, 0, 0);
 					glRotatef(-90, 0, 1, 0);
@@ -249,35 +247,35 @@ void dessin_bonhomme()
 						glPushMatrix();
 						{
 							glRotatef(125, 0, 1, 0);
-							glTranslatef(0, 0.25, 0.3);
+							glTranslatef(0, PAUME_H/2, -PAUME_R);
 							glCallList(Mon_Doigt);
 						}
 						glPopMatrix();
 						glPushMatrix();
 						{
 							glRotatef(165, 0, 1, 0);
-							glTranslatef(0, 0.25, 0.3);
+							glTranslatef(0, PAUME_H/2, -PAUME_R);
 							glCallList(Mon_Doigt);
 						}
 						glPopMatrix();
 						glPushMatrix();
 						{
 							glRotatef(180, 0, 1, 0);
-							glTranslatef(0, 0.25, 0.3);
+							glTranslatef(0, PAUME_H/2, -PAUME_R);
 							glCallList(Mon_Doigt);
 						}
 						glPopMatrix();
 						glPushMatrix();
 						{
 							glRotatef(195, 0, 1, 0);
-							glTranslatef(0, 0.25, 0.3);
+							glTranslatef(0, PAUME_H/2, -PAUME_R);
 							glCallList(Mon_Doigt);
 						}
 						glPopMatrix();
 						glPushMatrix();
 						{
 							glRotatef(210, 0, 1, 0);
-							glTranslatef(0, 0.25, 0.3);
+							glTranslatef(0, PAUME_H/2, -PAUME_R);
 							glCallList(Mon_Doigt);
 						}
 						glPopMatrix();

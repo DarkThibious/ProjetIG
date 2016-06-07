@@ -11,6 +11,7 @@
 #include <math.h>
 #include <tiffio.h>     /* Sam Leffler's libtiff library. */
 #include "formes.h"
+#include "struct.h"
 
 #define PI 3.1415926535898
 
