@@ -171,7 +171,7 @@ void initHomme()
 	e->angle_Ini[MIN] = 0.0;
 	e->angle_Ini[MAX] = 0.0;
 	e->listeDessin = Mon_Tronc;
-	e->nbCompo = 7; // tete + brasGD + jambeGD + papillon + bassin
+	e->nbCompo = 5; // tete + brasGD + papillon + bassin
 	e->compo = malloc(sizeof(entity)*e->nbCompo);
 
 	// Tete
