@@ -60,9 +60,9 @@ float med_Cuisse;
 float med_Mollet;
 
 float angle_Bras_Ini_R[2] = {-35.0, 45.0};
-float angle_AvantBras_Ini_R[2] = {90.0, 85.0};
-float angle_Cuisse_Ini_R[2] = {45.0, -30.0};
-float angle_Mollet_Ini_R[2] = {-5.0, -45.0};
+float angle_AvantBras_Ini_R[2] = {85.0, 90.0};
+float angle_Cuisse_Ini_R[2] = {-30.0, 45.0};
+float angle_Mollet_Ini_R[2] = {-45.0, -5.0};
 
 float amplitude_Bras_R;
 float amplitude_AvantBras_R;
@@ -134,7 +134,6 @@ void init_scene()
 void initHomme()
 {
 	entity *e;
-
 
 	// Tronc
 	e = &homme;
@@ -228,8 +227,8 @@ void initHomme()
 
 	// Coude droit
 	e = e->compo;
-	e->color[R] = 0.5;
-	e->color[G] = 0.5;
+	e->color[R] = 0.25;
+	e->color[G] = 0.25;
 	e->color[B] = 1;
 	e->pos[X] = 0;
 	e->pos[Y] = 0;
@@ -264,8 +263,8 @@ void initHomme()
 	
 	// Paume
 	e = e->compo;
-	e->color[R] = 0.25;
-	e->color[G] = 0.25;
+	e->color[R] = 0.5;
+	e->color[G] = 0.5;
 	e->color[B] = 1;
 	e->pos[X] = -PAUME_H/2;
 	e->pos[Y] = 0;
@@ -278,19 +277,19 @@ void initHomme()
 	e->angle_Ini[MAX] = 0;
 	e->listeDessin = Ma_Paume;
 	e->nbCompo = 5; // 5 doigts
-	e->compo = malloc(sizeof(entity)*e->nbCompo);
+	e->compo = malloc(sizeof(entity)*(e->nbCompo));
 
 	// Doigt
-	e->compo[0].color[R] = 1;
-	e->compo[0].color[G] = 0;
-	e->compo[0].color[B] = 0;
-	e->compo[0].pos[X] = 0;
+	e->compo[0].color[R] = -1;
+	e->compo[0].color[G] = -1;
+	e->compo[0].color[B] = -1;
+	e->compo[0].pos[X] = 2*DOIGT_R;
 	e->compo[0].pos[Y] = PAUME_H/2;
-	e->compo[0].pos[Z] = -PAUME_R;
-	e->compo[0].rotat[X] = 0;
+	e->compo[0].pos[Z] = -PAUME_R+2*DOIGT_R;
+	e->compo[0].rotat[X] = 1;
 	e->compo[0].rotat[Y] = 1;
 	e->compo[0].rotat[Z] = 0;
-	e->compo[0].rotat[ANGLE] = -100;
+	e->compo[0].rotat[ANGLE] = -160;
 	e->compo[0].angle_Ini[MIN] = 0;
 	e->compo[0].angle_Ini[MAX] = 0;
 	e->compo[0].listeDessin = Mon_Doigt;
@@ -301,13 +300,13 @@ void initHomme()
 	e->compo[1].color[R] = -1;
 	e->compo[1].color[G] = -1;
 	e->compo[1].color[B] = -1;
-	e->compo[1].pos[X] = 0;
-	e->compo[1].pos[Y] = PAUME_H/2;
-	e->compo[1].pos[Z] = -PAUME_R;
-	e->compo[1].rotat[X] = 0;
-	e->compo[1].rotat[Y] = 1;
+	e->compo[1].pos[X] = PAUME_H-DOIGT_R;
+	e->compo[1].pos[Y] = DOIGT_R;
+	e->compo[1].pos[Z] = -PAUME_R+DOIGT_R;
+	e->compo[1].rotat[X] = 1;
+	e->compo[1].rotat[Y] = 0;
 	e->compo[1].rotat[Z] = 0;
-	e->compo[1].rotat[ANGLE] = -155;
+	e->compo[1].rotat[ANGLE] = 210;
 	e->compo[1].angle_Ini[MIN] = 0;
 	e->compo[1].angle_Ini[MAX] = 0;
 	e->compo[1].listeDessin = Mon_Doigt;
@@ -318,13 +317,13 @@ void initHomme()
 	e->compo[2].color[R] = -1;
 	e->compo[2].color[G] = -1;
 	e->compo[2].color[B] = -1;
-	e->compo[2].pos[X] = 0;
-	e->compo[2].pos[Y] = PAUME_H/2;
-	e->compo[2].pos[Z] = -PAUME_R;
-	e->compo[2].rotat[X] = 0;
-	e->compo[2].rotat[Y] = 1;
+	e->compo[2].pos[X] = PAUME_H-DOIGT_R;
+	e->compo[2].pos[Y] = 0;
+	e->compo[2].pos[Z] = -PAUME_R+DOIGT_R;
+	e->compo[2].rotat[X] = 1;
+	e->compo[2].rotat[Y] = 0;
 	e->compo[2].rotat[Z] = 0;
-	e->compo[2].rotat[ANGLE] = -180;
+	e->compo[2].rotat[ANGLE] = 180;
 	e->compo[2].angle_Ini[MIN] = 0;
 	e->compo[2].angle_Ini[MAX] = 0;
 	e->compo[2].listeDessin = Mon_Doigt;
@@ -335,13 +334,13 @@ void initHomme()
 	e->compo[3].color[R] = -1;
 	e->compo[3].color[G] = -1;
 	e->compo[3].color[B] = -1;
-	e->compo[3].pos[X] = 0;
-	e->compo[3].pos[Y] = PAUME_H/2;
-	e->compo[3].pos[Z] = -PAUME_R;
-	e->compo[3].rotat[X] = 0;
-	e->compo[3].rotat[Y] = 1;
+	e->compo[3].pos[X] = PAUME_H-DOIGT_R;
+	e->compo[3].pos[Y] = -DOIGT_R;
+	e->compo[3].pos[Z] = -PAUME_R+DOIGT_R;
+	e->compo[3].rotat[X] = 1;
+	e->compo[3].rotat[Y] = 0;
 	e->compo[3].rotat[Z] = 0;
-	e->compo[3].rotat[ANGLE] = -205;
+	e->compo[3].rotat[ANGLE] = 150;
 	e->compo[3].angle_Ini[MIN] = 0;
 	e->compo[3].angle_Ini[MAX] = 0;
 	e->compo[3].listeDessin = Mon_Doigt;
@@ -352,13 +351,13 @@ void initHomme()
 	e->compo[4].color[R] = -1;
 	e->compo[4].color[G] = -1;
 	e->compo[4].color[B] = -1;
-	e->compo[4].pos[X] = 0;
-	e->compo[4].pos[Y] = PAUME_H/2;
-	e->compo[4].pos[Z] = -PAUME_R;
-	e->compo[4].rotat[X] = 0;
-	e->compo[4].rotat[Y] = 1;
+	e->compo[4].pos[X] = PAUME_H-DOIGT_R;
+	e->compo[4].pos[Y] = -2*DOIGT_R;
+	e->compo[4].pos[Z] = -PAUME_R+DOIGT_R;
+	e->compo[4].rotat[X] = 1;
+	e->compo[4].rotat[Y] = 0;
 	e->compo[4].rotat[Z] = 0;
-	e->compo[4].rotat[ANGLE] = -230;
+	e->compo[4].rotat[ANGLE] = 120;
 	e->compo[4].angle_Ini[MIN] = 0;
 	e->compo[4].angle_Ini[MAX] = 0;
 	e->compo[4].listeDessin = Mon_Doigt;
@@ -436,7 +435,7 @@ void initHomme()
 	e->nbCompo = 1; // Paume
 	e->compo = malloc(sizeof(entity));
 	
-	// Paume
+	// Paume 
 	e = e->compo;
 	e->color[R] = 0.5;
 	e->color[G] = 0.5;
@@ -458,13 +457,13 @@ void initHomme()
 	e->compo[0].color[R] = -1;
 	e->compo[0].color[G] = -1;
 	e->compo[0].color[B] = -1;
-	e->compo[0].pos[X] = 0;
+	e->compo[0].pos[X] = PAUME_H-2*DOIGT_R;
 	e->compo[0].pos[Y] = PAUME_H/2;
-	e->compo[0].pos[Z] = -PAUME_R;
+	e->compo[0].pos[Z] = -PAUME_R+2*DOIGT_R;
 	e->compo[0].rotat[X] = 0;
 	e->compo[0].rotat[Y] = 1;
 	e->compo[0].rotat[Z] = 0;
-	e->compo[0].rotat[ANGLE] = 125;
+	e->compo[0].rotat[ANGLE] = 160;
 	e->compo[0].angle_Ini[MIN] = 0;
 	e->compo[0].angle_Ini[MAX] = 0;
 	e->compo[0].listeDessin = Mon_Doigt;
@@ -475,13 +474,13 @@ void initHomme()
 	e->compo[1].color[R] = -1;
 	e->compo[1].color[G] = -1;
 	e->compo[1].color[B] = -1;
-	e->compo[1].pos[X] = 0;
-	e->compo[1].pos[Y] = PAUME_H/2;
-	e->compo[1].pos[Z] = -PAUME_R;
-	e->compo[1].rotat[X] = 0;
-	e->compo[1].rotat[Y] = 1;
+	e->compo[1].pos[X] = DOIGT_R;
+	e->compo[1].pos[Y] = DOIGT_R;
+	e->compo[1].pos[Z] = -PAUME_R+DOIGT_R;
+	e->compo[1].rotat[X] = 1;
+	e->compo[1].rotat[Y] = 0;
 	e->compo[1].rotat[Z] = 0;
-	e->compo[1].rotat[ANGLE] = 165;
+	e->compo[1].rotat[ANGLE] = 210;
 	e->compo[1].angle_Ini[MIN] = 0;
 	e->compo[1].angle_Ini[MAX] = 0;
 	e->compo[1].listeDessin = Mon_Doigt;
@@ -492,11 +491,11 @@ void initHomme()
 	e->compo[2].color[R] = -1;
 	e->compo[2].color[G] = -1;
 	e->compo[2].color[B] = -1;
-	e->compo[2].pos[X] = 0;
-	e->compo[2].pos[Y] = PAUME_H/2;
-	e->compo[2].pos[Z] = -PAUME_R;
-	e->compo[2].rotat[X] = 0;
-	e->compo[2].rotat[Y] = 1;
+	e->compo[2].pos[X] = DOIGT_R;
+	e->compo[2].pos[Y] = 0;
+	e->compo[2].pos[Z] = -PAUME_R+DOIGT_R;
+	e->compo[2].rotat[X] = 1;
+	e->compo[2].rotat[Y] = 0;
 	e->compo[2].rotat[Z] = 0;
 	e->compo[2].rotat[ANGLE] = 180;
 	e->compo[2].angle_Ini[MIN] = 0;
@@ -509,13 +508,13 @@ void initHomme()
 	e->compo[3].color[R] = -1;
 	e->compo[3].color[G] = -1;
 	e->compo[3].color[B] = -1;
-	e->compo[3].pos[X] = 0;
-	e->compo[3].pos[Y] = PAUME_H/2;
-	e->compo[3].pos[Z] = -PAUME_R;
-	e->compo[3].rotat[X] = 0;
-	e->compo[3].rotat[Y] = 1;
+	e->compo[3].pos[X] = DOIGT_R;
+	e->compo[3].pos[Y] = -DOIGT_R;
+	e->compo[3].pos[Z] = -PAUME_R+DOIGT_R;
+	e->compo[3].rotat[X] = 1;
+	e->compo[3].rotat[Y] = 0;
 	e->compo[3].rotat[Z] = 0;
-	e->compo[3].rotat[ANGLE] = 195;
+	e->compo[3].rotat[ANGLE] = 150;
 	e->compo[3].angle_Ini[MIN] = 0;
 	e->compo[3].angle_Ini[MAX] = 0;
 	e->compo[3].listeDessin = Mon_Doigt;
@@ -526,13 +525,13 @@ void initHomme()
 	e->compo[4].color[R] = -1;
 	e->compo[4].color[G] = -1;
 	e->compo[4].color[B] = -1;
-	e->compo[4].pos[X] = 0;
-	e->compo[4].pos[Y] = PAUME_H/2;
-	e->compo[4].pos[Z] = -PAUME_R;
-	e->compo[4].rotat[X] = 0;
-	e->compo[4].rotat[Y] = 1;
+	e->compo[4].pos[X] = DOIGT_R;
+	e->compo[4].pos[Y] = -2*DOIGT_R;
+	e->compo[4].pos[Z] = -PAUME_R+2*DOIGT_R;
+	e->compo[4].rotat[X] = 1;
+	e->compo[4].rotat[Y] = 0;
 	e->compo[4].rotat[Z] = 0;
-	e->compo[4].rotat[ANGLE] = 210;
+	e->compo[4].rotat[ANGLE] = 120;
 	e->compo[4].angle_Ini[MIN] = 0;
 	e->compo[4].angle_Ini[MAX] = 0;
 	e->compo[4].listeDessin = Mon_Doigt;
@@ -540,41 +539,43 @@ void initHomme()
 	e->compo[4].compo = NULL;
 	
 	// Bassin
-	homme.compo[BASSIN].color[R] = 1.0;
-	homme.compo[BASSIN].color[G] = 0.0;
-	homme.compo[BASSIN].color[B] = 0.0;
-	homme.compo[BASSIN].pos[X] = 0;
-	homme.compo[BASSIN].pos[Y] = 0;
-	homme.compo[BASSIN].pos[Z] = 0;
-	homme.compo[BASSIN].rotat[X] = 0;
-	homme.compo[BASSIN].rotat[Y] = 0;
-	homme.compo[BASSIN].rotat[Z] = 0;
-	homme.compo[BASSIN].rotat[ANGLE] = 0;
-	homme.compo[BASSIN].angle_Ini[MIN] = 0;
-	homme.compo[BASSIN].angle_Ini[MAX] = 0;
-	homme.compo[BASSIN].listeDessin = Mon_Bassin;
-	homme.compo[BASSIN].nbCompo = 2;// Jambes
-	homme.compo[BASSIN].compo = malloc(sizeof(entity)*homme.compo[BASSIN].nbCompo);
+	e = &(homme.compo[BASSIN]);
+	e->color[R] = 1.0;
+	e->color[G] = 0.0;
+	e->color[B] = 0.0;
+	e->pos[X] = 0;
+	e->pos[Y] = 0;
+	e->pos[Z] = 0;
+	e->rotat[X] = 0;
+	e->rotat[Y] = 0;
+	e->rotat[Z] = 0;
+	e->rotat[ANGLE] = 0;
+	e->angle_Ini[MIN] = 0;
+	e->angle_Ini[MAX] = 0;
+	e->listeDessin = Mon_Bassin;
+	e->nbCompo = 2;// Jambes
+	e->compo = malloc(sizeof(entity)*e->nbCompo);
 	
 	//cuisse gauche
-	homme.compo[BASSIN].compo[GAUCHE].color[R] = 1.0;
-	homme.compo[BASSIN].compo[GAUCHE].color[G] = 0.0;
-	homme.compo[BASSIN].compo[GAUCHE].color[B] = 0;
-	homme.compo[BASSIN].compo[GAUCHE].pos[X] = CUISSE_R-0.1;
-	homme.compo[BASSIN].compo[GAUCHE].pos[Y] = 0;
-	homme.compo[BASSIN].compo[GAUCHE].pos[Z] = -TRONC_R/10-0.05;
-	homme.compo[BASSIN].compo[GAUCHE].rotat[X] = 1;
-	homme.compo[BASSIN].compo[GAUCHE].rotat[Y] = 0;
-	homme.compo[BASSIN].compo[GAUCHE].rotat[Z] = 0;
-	homme.compo[BASSIN].compo[GAUCHE].rotat[ANGLE] = 0;
-	homme.compo[BASSIN].compo[GAUCHE].angle_Ini[MIN] = 0;
-	homme.compo[BASSIN].compo[GAUCHE].angle_Ini[MAX] = 0;
-	homme.compo[BASSIN].compo[GAUCHE].listeDessin = Ma_Cuisse;
-	homme.compo[BASSIN].compo[GAUCHE].nbCompo = 1;
-	homme.compo[BASSIN].compo[GAUCHE].compo = malloc(sizeof(entity));
+	e = &(e->compo[GAUCHE]);
+	e->color[R] = 1.0;
+	e->color[G] = 0.0;
+	e->color[B] = 0;
+	e->pos[X] = CUISSE_R-0.1;
+	e->pos[Y] = 0;
+	e->pos[Z] = -TRONC_R/10-0.05;
+	e->rotat[X] = 1;
+	e->rotat[Y] = 0;
+	e->rotat[Z] = 0;
+	e->rotat[ANGLE] = 0;
+	e->angle_Ini[MIN] = 0;
+	e->angle_Ini[MAX] = 0;
+	e->listeDessin = Ma_Cuisse;
+	e->nbCompo = 1;
+	e->compo = malloc(sizeof(entity));
 	
 	// Genou
-	e = homme.compo[BASSIN].compo[GAUCHE].compo;
+	e = e->compo;
 	e->color[R] = 1;
 	e->color[G] = 0.25;
 	e->color[B] = 0.25;
@@ -629,7 +630,7 @@ void initHomme()
 	e->compo = malloc(sizeof(entity));
 	
 	// Genou
-	e = homme.compo[BASSIN].compo[DROITE].compo;
+	e = e->compo;
 	e->color[R] = 1;
 	e->color[G] = 0.25;
 	e->color[B] = 0.25;
@@ -647,7 +648,7 @@ void initHomme()
 	e->compo = malloc(sizeof(entity));
 	
 	// Mollet
-	e =e->compo;
+	e = e->compo;
 	e->color[R] = -1;
 	e->color[G] = -1;
 	e->color[B] = -1;
@@ -852,8 +853,7 @@ void Faire_Composantes()
 	{
 		glPushMatrix();
 		{
-			glRotatef(180,1,1,0);
-			glRotatef(-90,0,0,1);
+	//		glRotatef(180,1,1,0);
 			gluDisk(qobj, 0.0, DOIGT_R, 20, 20);
 			gluCylinder(qobj, DOIGT_R, DOIGT_R/2, DOIGT_H, 20, 20);
 			glTranslatef(0, 0, DOIGT_H);
@@ -893,7 +893,7 @@ void Faire_Composantes()
 void Dessine_Repere() 
 {
 	glNewList(Mon_Repere, GL_COMPILE);
-	{
+{
 		glBegin(GL_LINES);
 		{
 			glColor3f(1.0, 0.0, 0.0);

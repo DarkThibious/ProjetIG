@@ -10,6 +10,9 @@
 #define COEFF_WALK 0.0035f
 #define COEFF_RUN 0.005f
 
+#define RUN_INCREM 0.25f
+#define RUN_ANGLE 12.5f
+
 extern float t;
 extern float delta;
 extern float k;
@@ -58,5 +61,6 @@ void seatCalc();
 void idleCalc();
 void transitionnage();
 transition *createTransition(float *var, float value, float increm);
+transition *trouveTransition(float *var);
 void finTransition(transition *fini);
 #endif

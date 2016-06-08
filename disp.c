@@ -54,10 +54,10 @@ void render_scene()
 	glColor3f(0.5,1,0.5);
 	glPushMatrix();
 	{
-		glTranslatef(0,50,0);
+	//	glTranslatef(0,50,0);
 		glRotatef(180,0,0,1);
 		glScalef(1.3,1.3,1.75);
-		glCallList(Ma_Chaise);
+	//	glCallList(Ma_Chaise);
 	}
 	glPopMatrix();
 
@@ -315,8 +315,8 @@ void drawEntity(entity e)
 	}
 	glPushMatrix();	
 	{
-		glRotatef(e.rotat[ANGLE], e.rotat[X], e.rotat[Y], e.rotat[Z]);
 		glTranslatef(e.pos[X], e.pos[Y], e.pos[Z]);
+		glRotatef(e.rotat[ANGLE], e.rotat[X], e.rotat[Y], e.rotat[Z]);
 		glCallList(e.listeDessin);
 		for(i=0;i<e.nbCompo;i++)
 		{

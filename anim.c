@@ -49,18 +49,10 @@ GLvoid window_key(unsigned char key, int x, int y)
 			}
 			break;
 		case 'r':
-			prevDoing = doing;
-			doing = RUN;
-			k = COEFF_RUN;
-			createTransition(&dt, 5, 0.01f);
-			createTransition(&vitesse, VITESSE_RUN, 0.001f);
+			makeRunning();
 			break;
 		case 'w':
-			prevDoing = doing;
-			doing = WALK;
-			k = COEFF_WALK;
-			createTransition(&dt, 0, 0.01f);
-			createTransition(&vitesse, VITESSE_WALK, 0.001f);
+			makeWalking();
 			break;
 		case 'i':
 			doing = IDLE;
@@ -136,10 +128,11 @@ GLvoid window_timer(int value)
 		switch(doing)
 		{
 			case WALK:
-				walkCalc();
-				break;
+				//walkCalc();
+				//break;
 			case RUN:
-				runCalc();
+			//	runCalc();
+				perCalc();
 				break;
 			case IDLE:
 				idleCalc();
@@ -148,26 +141,40 @@ GLvoid window_timer(int value)
 				seatCalc();
 		}
 	}
-	position_X += direction_X*vitesse;
-	position_Y += direction_Y*vitesse;
+	homme.pos[X] += direction_X*vitesse;
+	homme.pos[Y] += direction_Y*vitesse;
 	transitionnage();
 	glutTimerFunc(latence,&window_timer,++Step);
 	glutPostRedisplay();
 }
 
-void walkCalc()
+void perCalc()
 {
 	// On effectue une variation des angles de chaque membre
 	// de l'amplitude associée et de la position médiane
 	sin_k_t = sin(k*t);
-	angle_Bras[GAUCHE] = med_Bras + amplitude_Bras * sin_k_t;
-	angle_Bras[DROITE] = med_Bras - amplitude_Bras * sin_k_t;
-	angle_AvantBras[GAUCHE] = med_AvantBras + amplitude_AvantBras * sin_k_t;
-	angle_AvantBras[DROITE] = med_AvantBras - amplitude_AvantBras * sin_k_t;
-	angle_Cuisse[GAUCHE] = med_Cuisse + amplitude_Cuisse * sin_k_t;
-	angle_Cuisse[DROITE] = med_Cuisse - amplitude_Cuisse * sin_k_t;
-	angle_Mollet[GAUCHE] = med_Mollet + amplitude_Mollet * sin_k_t;
-	angle_Mollet[DROITE] = med_Mollet - amplitude_Mollet * sin_k_t;
+
+	entity *e;
+
+	e = &(homme.compo[EPAULE_GAUCHE]); // epaule gauche
+	e->rotat[ANGLE] = 0.5*(e->angle_Ini[MIN] + e->angle_Ini[MAX]) +  0.5*(e->angle_Ini[MAX] - e->angle_Ini[MIN]) * sin_k_t; 
+	e = e->compo->compo; // coude gauche
+	e->rotat[ANGLE] = 0.5*(e->angle_Ini[MIN] + e->angle_Ini[MAX]) +  0.5*(e->angle_Ini[MAX] - e->angle_Ini[MIN]) * sin_k_t;
+
+	e = &(homme.compo[EPAULE_DROITE]); // epaule droite
+	e->rotat[ANGLE] = 0.5*(e->angle_Ini[MIN] + e->angle_Ini[MAX]) +  0.5*(e->angle_Ini[MAX] - e->angle_Ini[MIN]) * sin_k_t;
+	e = e->compo->compo; // coude droit
+	e->rotat[ANGLE] = 0.5*(e->angle_Ini[MIN] + e->angle_Ini[MAX]) +  0.5*(e->angle_Ini[MAX] - e->angle_Ini[MIN]) * sin_k_t;
+
+	e = &(homme.compo[BASSIN].compo[DROITE]); // jambe droite
+	e->rotat[ANGLE] = 0.5*(e->angle_Ini[MIN] + e->angle_Ini[MAX]) +  0.5*(e->angle_Ini[MAX] - e->angle_Ini[MIN]) * sin_k_t;
+	e = e->compo;
+	e->rotat[ANGLE] = 0.5*(e->angle_Ini[MIN] + e->angle_Ini[MAX]) +  0.5*(e->angle_Ini[MAX] - e->angle_Ini[MIN]) * sin_k_t;
+
+	e = &(homme.compo[BASSIN].compo[GAUCHE]);//Jambe gauche
+	e->rotat[ANGLE] = 0.5*(e->angle_Ini[MIN] + e->angle_Ini[MAX]) +  0.5*(e->angle_Ini[MAX] - e->angle_Ini[MIN]) * sin_k_t;
+	e = e->compo;
+	e->rotat[ANGLE] = 0.5*(e->angle_Ini[MIN] + e->angle_Ini[MAX]) +  0.5*(e->angle_Ini[MAX] - e->angle_Ini[MIN]) * sin_k_t;
 
 	// On déplace la position de l'avatar pour qu'il avance
 }
@@ -321,6 +328,19 @@ void finTransition(transition *fini)
 	free(fini);
 }
 
+transition *trouveTransition(float *var)
+{
+	transition *T = first_Transi;
+	while(T != NULL)
+	{
+		if(T->var == var)
+		{
+			return T;
+		}
+		T = T->next;
+	}
+	return NULL;
+}
 
 void transitionnage()
 {
@@ -329,7 +349,7 @@ void transitionnage()
 	{
 		if(!T->fini)
 		{
-			if(T->value - *(T->var) <= T->increm)
+			if(abs(T->value - *(T->var)) <= abs(T->increm))
 			{
 				*(T->var) = T->value;
 				T->fini = true;
@@ -360,29 +380,362 @@ void transitionnage()
 
 void deterAngle()
 {
-	int angleX, angleY, angle;
+	int angle;
 	if(direction_Y == 1)
 	{
-		angleY = 0;
-		angle = angleY;
+		switch(direction_X)
+		{
+			case 0 :
+				angle = 0;
+				break;
+			case 1 :
+				angle = 315;
+				break;
+			case -1 :
+				angle = 45;
+				break;
+		}
 	}
 	else if(direction_Y == -1)
 	{
-		angleY = 180;
-		angle = angleY;
+		switch(direction_X)
+		{
+			case 0 :
+				angle = 180;
+				break;
+			case 1 :
+				angle = 225;
+				break;
+			case -1 :
+				angle = 135;
+				break;
+		}
 	}
-	if(direction_X == 1)
+	else
 	{
-		angleX = -90;
-		angle = angleX;
+		switch(direction_X)
+		{
+			case 0 :
+				angle = 0;
+				break;
+			case 1 :
+				angle = 270;
+				break;
+			case -1 :
+				angle = 90;
+				break;
+		}
 	}
-	else if(direction_X == -1)
+	transition *T = trouveTransition(&(homme.rotat[ANGLE]));
+	if(T != NULL)
 	{
-		angleX = 90;
-		angle = angleX;
+		finTransition(T);
 	}
-	if(direction_Y != 0 && direction_X != 0)
+	if(homme.rotat[ANGLE] > 180 && angle < 180)
 	{
-		angle = (angleX + angleY)/2;
+		angle += 360;
 	}
+	createTransition(&(homme.rotat[ANGLE]), angle, 5);
+}
+
+void makeRunning()
+{
+	transition *T;
+	doing = RUN;
+	k = COEFF_RUN;
+	
+	T = trouveTransition(&dt);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&dt, 5, 0.01f);
+
+	T = trouveTransition(&vitesse);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&vitesse, VITESSE_RUN, 0.001f);
+
+	// Epaule droite
+	T = trouveTransition(&homme.compo[EPAULE_DROITE].angle_Ini[MIN]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_DROITE].angle_Ini[MIN]), angle_Bras_Ini_R[MIN], RUN_INCREM);
+
+	T = trouveTransition(&homme.compo[EPAULE_DROITE].angle_Ini[MAX]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_DROITE].angle_Ini[MAX]), angle_Bras_Ini_R[MAX], RUN_INCREM);
+
+	// Coude droit
+	T = trouveTransition(&homme.compo[EPAULE_DROITE].compo[0].compo[0].angle_Ini[MIN]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_DROITE].compo[0].compo[0].angle_Ini[MIN]), angle_AvantBras_Ini_R[MIN], RUN_INCREM);
+
+	T = trouveTransition(&homme.compo[EPAULE_DROITE].compo[0].compo[0].angle_Ini[MAX]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_DROITE].compo[0].compo[0].angle_Ini[MAX]), angle_AvantBras_Ini_R[MAX], RUN_INCREM);
+
+	// Epaule gauche
+	T = trouveTransition(&homme.compo[EPAULE_GAUCHE].angle_Ini[MIN]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_GAUCHE].angle_Ini[MIN]), angle_Bras_Ini_R[MAX], RUN_INCREM);
+
+	T = trouveTransition(&homme.compo[EPAULE_GAUCHE].angle_Ini[MAX]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_GAUCHE].angle_Ini[MAX]), angle_Bras_Ini_R[MIN], RUN_INCREM);
+
+	// Coude gauche
+	T = trouveTransition(&homme.compo[EPAULE_GAUCHE].compo[0].compo[0].angle_Ini[MIN]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_GAUCHE].compo[0].compo[0].angle_Ini[MIN]), angle_AvantBras_Ini_R[MAX], RUN_INCREM);
+
+	T = trouveTransition(&homme.compo[EPAULE_GAUCHE].compo[0].compo[0].angle_Ini[MAX]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_GAUCHE].compo[0].compo[0].angle_Ini[MAX]), angle_AvantBras_Ini_R[MIN], RUN_INCREM);
+
+	// Cuisse Droite
+	T = trouveTransition(&(homme.compo[BASSIN].compo[DROITE].angle_Ini[MIN]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[DROITE].angle_Ini[MIN]), angle_Cuisse_Ini_R[MIN], RUN_INCREM);
+	
+	T = trouveTransition(&(homme.compo[BASSIN].compo[DROITE].angle_Ini[MAX]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[DROITE].angle_Ini[MAX]), angle_Cuisse_Ini_R[MAX], RUN_INCREM);
+
+	// Genou Droit
+	T = trouveTransition(&(homme.compo[BASSIN].compo[DROITE].compo[0].angle_Ini[MIN]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[DROITE].compo[0].angle_Ini[MIN]), angle_Mollet_Ini_R[MIN], RUN_INCREM);
+	
+	T = trouveTransition(&(homme.compo[BASSIN].compo[DROITE].compo[0].angle_Ini[MAX]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[DROITE].compo[0].angle_Ini[MAX]), angle_Mollet_Ini_R[MAX], RUN_INCREM);
+
+
+	// Cuisse Gauche 
+	T = trouveTransition(&(homme.compo[BASSIN].compo[GAUCHE].angle_Ini[MIN]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[GAUCHE].angle_Ini[MIN]), angle_Cuisse_Ini_R[MAX], RUN_INCREM);
+	
+	T = trouveTransition(&(homme.compo[BASSIN].compo[GAUCHE].angle_Ini[MAX]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[GAUCHE].angle_Ini[MAX]), angle_Cuisse_Ini_R[MIN], RUN_INCREM);
+
+	// Genou Droit
+	T = trouveTransition(&(homme.compo[BASSIN].compo[GAUCHE].compo[0].angle_Ini[MIN]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[GAUCHE].compo[0].angle_Ini[MIN]), angle_Mollet_Ini_R[MAX], RUN_INCREM);
+	
+	T = trouveTransition(&(homme.compo[BASSIN].compo[GAUCHE].compo[0].angle_Ini[MAX]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[GAUCHE].compo[0].angle_Ini[MAX]), angle_Mollet_Ini_R[MIN], RUN_INCREM);
+
+/*	angle Perso
+	T = trouveTransition(&(homme.rotat[ANGLE]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.rotat[ANGLE]), RUN_ANGLE, RUN_INCREM);
+	*/
+}
+
+void makeWalking()
+{
+	transition *T;
+	doing = WALK;
+	k = COEFF_WALK;
+	
+	T = trouveTransition(&dt);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&dt, 0, 0.01f);
+
+	T = trouveTransition(&vitesse);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&vitesse, VITESSE_WALK, 0.001f);
+
+	// Epaule droite
+	T = trouveTransition(&homme.compo[EPAULE_DROITE].angle_Ini[MIN]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_DROITE].angle_Ini[MIN]), angle_Bras_Ini[MIN], RUN_INCREM);
+
+	T = trouveTransition(&homme.compo[EPAULE_DROITE].angle_Ini[MAX]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_DROITE].angle_Ini[MAX]), angle_Bras_Ini[MAX], RUN_INCREM);
+
+	// Coude droit
+	T = trouveTransition(&homme.compo[EPAULE_DROITE].compo[0].compo[0].angle_Ini[MIN]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_DROITE].compo[0].compo[0].angle_Ini[MIN]), angle_AvantBras_Ini[MIN], RUN_INCREM);
+
+	T = trouveTransition(&homme.compo[EPAULE_DROITE].compo[0].compo[0].angle_Ini[MAX]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_DROITE].compo[0].compo[0].angle_Ini[MAX]), angle_AvantBras_Ini[MAX], RUN_INCREM);
+
+	// Epaule gauche
+	T = trouveTransition(&homme.compo[EPAULE_GAUCHE].angle_Ini[MIN]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_GAUCHE].angle_Ini[MIN]), angle_Bras_Ini[MAX], RUN_INCREM);
+
+	T = trouveTransition(&homme.compo[EPAULE_GAUCHE].angle_Ini[MAX]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_GAUCHE].angle_Ini[MAX]), angle_Bras_Ini[MIN], RUN_INCREM);
+
+	// Coude gauche
+	T = trouveTransition(&homme.compo[EPAULE_GAUCHE].compo[0].compo[0].angle_Ini[MIN]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_GAUCHE].compo[0].compo[0].angle_Ini[MIN]), angle_AvantBras_Ini[MAX], RUN_INCREM);
+
+	T = trouveTransition(&homme.compo[EPAULE_GAUCHE].compo[0].compo[0].angle_Ini[MAX]);
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition((&homme.compo[EPAULE_GAUCHE].compo[0].compo[0].angle_Ini[MAX]), angle_AvantBras_Ini[MIN], RUN_INCREM);
+
+	// Cuisse Droite
+	T = trouveTransition(&(homme.compo[BASSIN].compo[DROITE].angle_Ini[MIN]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[DROITE].angle_Ini[MIN]), angle_Cuisse_Ini[MIN], RUN_INCREM);
+	
+	T = trouveTransition(&(homme.compo[BASSIN].compo[DROITE].angle_Ini[MAX]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[DROITE].angle_Ini[MAX]), angle_Cuisse_Ini[MAX], RUN_INCREM);
+
+	// Genou Droit
+	T = trouveTransition(&(homme.compo[BASSIN].compo[DROITE].compo[0].angle_Ini[MIN]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[DROITE].compo[0].angle_Ini[MIN]), angle_Mollet_Ini[MIN], RUN_INCREM);
+	
+	T = trouveTransition(&(homme.compo[BASSIN].compo[DROITE].compo[0].angle_Ini[MAX]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[DROITE].compo[0].angle_Ini[MAX]), angle_Mollet_Ini[MAX], RUN_INCREM);
+
+
+	// Cuisse Gauche 
+	T = trouveTransition(&(homme.compo[BASSIN].compo[GAUCHE].angle_Ini[MIN]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[GAUCHE].angle_Ini[MIN]), angle_Cuisse_Ini[MAX], RUN_INCREM);
+	
+	T = trouveTransition(&(homme.compo[BASSIN].compo[GAUCHE].angle_Ini[MAX]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[GAUCHE].angle_Ini[MAX]), angle_Cuisse_Ini[MIN], RUN_INCREM);
+
+	// Genou Droit
+	T = trouveTransition(&(homme.compo[BASSIN].compo[GAUCHE].compo[0].angle_Ini[MIN]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[GAUCHE].compo[0].angle_Ini[MIN]), angle_Mollet_Ini[MAX], RUN_INCREM);
+	
+	T = trouveTransition(&(homme.compo[BASSIN].compo[GAUCHE].compo[0].angle_Ini[MAX]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.compo[BASSIN].compo[GAUCHE].compo[0].angle_Ini[MAX]), angle_Mollet_Ini[MIN], RUN_INCREM);
+
+/*	angle Perso
+	T = trouveTransition(&(homme.rotat[ANGLE]));
+	if(T != NULL)
+	{
+		finTransition(T);
+	}
+	createTransition(&(homme.rotat[ANGLE]), RUN_ANGLE, RUN_INCREM);
+	*/
 }
