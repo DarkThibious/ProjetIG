@@ -49,6 +49,7 @@ void render_scene()
 
 	Dessine_Repere();
 
+	drawEntity(chaise);
 	drawEntity(homme);
 	//dessin_bonhomme();
 	glColor3f(0.5,1,0.5);

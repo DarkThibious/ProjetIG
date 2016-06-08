@@ -13,10 +13,10 @@ OBJS = $(SRC:.c=.o)
 all: $(EXEC)
 
 $(EXEC): $(OBJS) 
-	$(GCC) $(LDFLAGS) -o $(EXEC) $^ 
+	$(GCC) $(LDFLAGS) -o $(EXEC) $^ -Wall 
 
 %.o: %.c $(HDRS)
-	$(GCC) $(CFLAGS) -o $@ -c $<
+	$(GCC) $(CFLAGS) -o $@ -c $< -Wall
 
 # cette commande permet de supprimer tous les objets
 clean:

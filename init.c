@@ -18,6 +18,7 @@ static GLfloat mat_shininess[] = {20.0};
 int  Mon_Repere;
 
 entity homme;
+entity chaise;
 
 int Mon_Tronc;
 int Ma_Tete;
@@ -129,6 +130,25 @@ void init_scene()
 	med_AvantBras_R = .5 * (angle_AvantBras_Ini_R[DROITE] + angle_AvantBras_Ini_R[GAUCHE]);
 	med_Cuisse_R = .5 * (angle_Cuisse_Ini_R[DROITE] + angle_Cuisse_Ini_R[GAUCHE]);
 	med_Mollet_R = .5 * (angle_Mollet_Ini_R[DROITE] + angle_Mollet_Ini_R[GAUCHE]);
+}
+
+void initChaise()
+{
+	chaise.color[R] = 0.5;
+	chaise.color[G] = 1.0;
+	chaise.color[B] = 0.5;
+	chaise.pos[X] = 0;
+	chaise.pos[Y] = 15;
+	chaise.pos[Z] = 0;
+	chaise.rotat[X] = 0;
+	chaise.rotat[Y] = 0;
+	chaise.rotat[Z] = 0;
+	chaise.rotat[ANGLE] = 0;
+	chaise.angle_Ini[MAX] = 0;
+	chaise.angle_Ini[MIN] = 0;
+	chaise.listeDessin = Ma_Chaise;
+	chaise.nbCompo = 0;
+	chaise.compo = NULL;
 }
 
 void initHomme()
