@@ -41,6 +41,12 @@ typedef struct trans transition;
 
 extern transition *first_Transi;
 
+extern float angle_Seat_Epaule;
+extern float angle_Seat_Coude;
+extern float angle_Seat_Genou;
+extern float angle_Seat_Cuisse;
+extern float angle_increm;
+
 struct trans
 {
 	float *var;

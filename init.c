@@ -194,12 +194,12 @@ void initHomme()
 
 	// Chapeau
 	e = e->compo;
-	e->color[R] = 1.0;
-	e->color[G] = 1.0;
-	e->color[B] = 1.0;
+	e->color[R] = 0.0;
+	e->color[G] = 0.0;
+	e->color[B] = 0.0;
 	e->pos[X] = 0;
 	e->pos[Y] = 0;
-	e->pos[Z] = TETE_R;
+	e->pos[Z] = TETE_R/2;
 	e->rotat[X] = 0;
 	e->rotat[Y] = 0;
 	e->rotat[Z] = 0;
@@ -212,9 +212,9 @@ void initHomme()
 
 	// Epaule droite
 	e = &(homme.compo[EPAULE_DROITE]);
-	e->color[R] = 0.0;
-	e->color[G] = 0.0;
-	e->color[B] = 1.0;
+	e->color[R] = -1.0;
+	e->color[G] = -1.0;
+	e->color[B] = -1.0;
 	e->pos[X] = TRONC_R+BRAS_R;
 	e->pos[Y] = 0;
 	e->pos[Z] = TRONC_H-BRAS_R;
@@ -230,9 +230,9 @@ void initHomme()
 	
 	// Bras droit
 	e = e->compo;
-	e->color[R] = 0.0;
-	e->color[G] = 0.0;
-	e->color[B] = 1.0;
+	e->color[R] = -1.0;
+	e->color[G] = -1.0;
+	e->color[B] = -1.0;
 	e->pos[X] = 0;
 	e->pos[Y] = 0;
 	e->pos[Z] = 0;
@@ -248,9 +248,9 @@ void initHomme()
 
 	// Coude droit
 	e = e->compo;
-	e->color[R] = 0.25;
-	e->color[G] = 0.25;
-	e->color[B] = 1;
+	e->color[R] = 1.0;
+	e->color[G] = 1.0;
+	e->color[B] = 0;
 	e->pos[X] = 0;
 	e->pos[Y] = 0;
 	e->pos[Z] = -(BRAS_H+BRAS_R/2);
@@ -266,9 +266,9 @@ void initHomme()
 	
 	// Avant-Bras droit
 	e = e->compo;
-	e->color[R] = -1;
-	e->color[G] = -1;
-	e->color[B] = -1;
+	e->color[R] = -1.0;
+	e->color[G] = -1.0;
+	e->color[B] = -0.0;
 	e->pos[X] = 0;
 	e->pos[Y] = 0;
 	e->pos[Z] = 0;
@@ -284,9 +284,9 @@ void initHomme()
 	
 	// Paume
 	e = e->compo;
-	e->color[R] = 0.5;
-	e->color[G] = 0.5;
-	e->color[B] = 1;
+	e->color[R] = -1;
+	e->color[G] = -1;
+	e->color[B] = -1;
 	e->pos[X] = -PAUME_H/2;
 	e->pos[Y] = 0;
 	e->pos[Z] = -(BRAS_H+BRAS_R/2);
@@ -387,9 +387,9 @@ void initHomme()
 	
 	//Gauche
 	// Epaule
-	homme.compo[EPAULE_GAUCHE].color[R] = 0.0;
-	homme.compo[EPAULE_GAUCHE].color[G] = 0.0;
-	homme.compo[EPAULE_GAUCHE].color[B] = 1.0;
+	homme.compo[EPAULE_GAUCHE].color[R] = -1.0;
+	homme.compo[EPAULE_GAUCHE].color[G] = -1.0;
+	homme.compo[EPAULE_GAUCHE].color[B] = -1.0;
 	homme.compo[EPAULE_GAUCHE].pos[X] = -(TRONC_R+BRAS_R);
 	homme.compo[EPAULE_GAUCHE].pos[Y] = 0;
 	homme.compo[EPAULE_GAUCHE].pos[Z] = TRONC_H-BRAS_R;
@@ -422,9 +422,9 @@ void initHomme()
 
 	// Coude
 	e = homme.compo[EPAULE_GAUCHE].compo->compo;
-	e->color[R] = 0.25;
-	e->color[G] = 0.25;
-	e->color[B] = 1.0;
+	e->color[R] = 1.0;
+	e->color[G] = 1.0;
+	e->color[B] = 0.0;
 	e->pos[X] = 0;
 	e->pos[Y] = 0;
 	e->pos[Z] = -(BRAS_H+BRAS_R/2);
@@ -458,9 +458,9 @@ void initHomme()
 	
 	// Paume 
 	e = e->compo;
-	e->color[R] = 0.5;
-	e->color[G] = 0.5;
-	e->color[B] = 1.0;
+	e->color[R] = -1.0;
+	e->color[G] = -1.0;
+	e->color[B] = -1.0;
 	e->pos[X] = -PAUME_H/2;
 	e->pos[Y] = 0;
 	e->pos[Z] = -(BRAS_H+BRAS_R/2);
@@ -561,7 +561,7 @@ void initHomme()
 	
 	// Bassin
 	e = &(homme.compo[BASSIN]);
-	e->color[R] = 1.0;
+	e->color[R] = 0.0;
 	e->color[G] = 0.0;
 	e->color[B] = 0.0;
 	e->pos[X] = 0;
@@ -579,9 +579,9 @@ void initHomme()
 	
 	//cuisse gauche
 	e = &(e->compo[GAUCHE]);
-	e->color[R] = 1.0;
-	e->color[G] = 0.0;
-	e->color[B] = 0;
+	e->color[R] = -1.0;
+	e->color[G] = -1.0;
+	e->color[B] = -1.0;
 	e->pos[X] = CUISSE_R-0.1;
 	e->pos[Y] = 0;
 	e->pos[Z] = -TRONC_R/10-0.05;
@@ -597,9 +597,9 @@ void initHomme()
 	
 	// Genou
 	e = e->compo;
-	e->color[R] = 1;
-	e->color[G] = 0.25;
-	e->color[B] = 0.25;
+	e->color[R] = -1;
+	e->color[G] = -1;
+	e->color[B] = -1;
 	e->pos[X] = 0;
 	e->pos[Y] = 0;
 	e->pos[Z] = -CUISSE_H;
@@ -634,9 +634,9 @@ void initHomme()
 	//cote droit
 	// Cuisse
 	e = &(homme.compo[BASSIN].compo[DROITE]);
-	e->color[R] = 1.0;
-	e->color[G] = 0;
-	e->color[B] = 0;
+	e->color[R] = -1.0;
+	e->color[G] = -1.0;
+	e->color[B] = -1.0;
 	e->pos[X] = -(CUISSE_R-0.1);
 	e->pos[Y] = 0;
 	e->pos[Z] = -TRONC_R/10-0.05;
@@ -652,9 +652,9 @@ void initHomme()
 	
 	// Genou
 	e = e->compo;
-	e->color[R] = 1;
-	e->color[G] = 0.25;
-	e->color[B] = 0.25;
+	e->color[R] = -1.0;
+	e->color[G] = -1.0;
+	e->color[B] = -1.0;
 	e->pos[X] = 0;
 	e->pos[Y] = 0;
 	e->pos[Z] = -CUISSE_H;
