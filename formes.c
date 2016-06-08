@@ -11,6 +11,7 @@ void make_Chaise()
 	{
 		glPushMatrix();
 		{
+			glScalef(1.3,1.3,1.75);
 			glTranslatef(-2,+0.75-5.5/2,1.5);
 			glPushMatrix();
 			{

@@ -57,7 +57,6 @@ void render_scene()
 	{
 	//	glTranslatef(0,50,0);
 		glRotatef(180,0,0,1);
-		glScalef(1.3,1.3,1.75);
 	//	glCallList(Ma_Chaise);
 	}
 	glPopMatrix();

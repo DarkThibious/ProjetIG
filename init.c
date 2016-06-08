@@ -112,6 +112,7 @@ void init_scene()
 	// initialise des display lists des composantes cylindriques du corps
 	Faire_Composantes();
 	initHomme();
+	initChaise();
 
 	amplitude_Bras = .5 * (angle_Bras_Ini[DROITE] - angle_Bras_Ini[GAUCHE]);
 	amplitude_AvantBras = .5 * (angle_AvantBras_Ini[DROITE] - angle_AvantBras_Ini[GAUCHE]);
@@ -142,8 +143,8 @@ void initChaise()
 	chaise.pos[Z] = 0;
 	chaise.rotat[X] = 0;
 	chaise.rotat[Y] = 0;
-	chaise.rotat[Z] = 0;
-	chaise.rotat[ANGLE] = 0;
+	chaise.rotat[Z] = 1;
+	chaise.rotat[ANGLE] = 180;
 	chaise.angle_Ini[MAX] = 0;
 	chaise.angle_Ini[MIN] = 0;
 	chaise.listeDessin = Ma_Chaise;
