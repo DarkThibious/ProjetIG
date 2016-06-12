@@ -821,7 +821,7 @@ void makeSeat()
 	{
 		finTransition(T);
 	}
-	createTransition(&(homme.rotat[ANGLE]), 180, 5);	
+	createTransition(&(homme.rotat[ANGLE]), 180, 10);	
 
 	T = trouveTransition(&(homme.pos[X]));
 	if(T != NULL)
